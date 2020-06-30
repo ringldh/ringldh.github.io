@@ -17,4 +17,4 @@ exclude: ['README.md']
 markdown: kramdown
 
 
-theme: jekyll-theme-cayman
+theme: jekyll-theme-slate
