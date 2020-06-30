@@ -1,0 +1,29 @@
+﻿.head-v3{position:relative;z-index:100;min-width:1000px;}
+.head-v3 .navigation-inner{margin:0 auto;width:1000px;position:relative;}
+.navigation-up{background-color:#005ba1;height:51px;}
+.navigation-up .navigation-v3{margin-left:0px;float:left;_margin-left:10px;}
+.navigation-up .navigation-v3 ul{float:left}
+.navigation-up .navigation-v3 li{float:left;font:normal 16px/50px "microsoft yahei";color:#fff}
+.navigation-up .navigation-v3 .nav-up-selected{background:url(../images/menubg2.jpg) repeat-x;height:51px;}
+.navigation-up .navigation-v3 .nav-up-selected a{color:#f06b00}
+.navigation-up .navigation-v3 .nav-up-selected-inpage{background:#edf1f4}
+.navigation-up .navigation-v3 li h2{font-weight:normal;padding:0;margin:0}
+.navigation-up .navigation-v3 li h2 a{font-size:16px;padding:0 24px;color:#fff;display:inline-block;height:51px;font-family:"microsoft yahei"}
+.navigation-up .navigation-v3 li h2 a:hover{text-decoration:none;}
+
+.navigation-down{position:absolute;top:51px;left:0px;width:100%;}
+.navigation-down .nav-down-menu{
+width:100%;margin:0;background:#ffffff;position:absolute;top:0px;
+-moz-box-shadow: 0px 2px 5px #cad3d8; /* 老的 Firefox */
+box-shadow: 0px 2px 5px #cad3d8;
+filter:alpha(opacity=90);  /*支持 IE 浏览器*/
+-moz-opacity:0.90; /*支持 FireFox 浏览器*/
+opacity:0.90;  /*支持 Chrome, Opera, Safari 等浏览器*/}
+.navigation-down .nav-down-menu .navigation-down-inner{margin:0 auto;width:980px;position:relative;height:40px;line-height:40px;}
+.navigation-down .nav-down-menu dl{float:left;margin:20px 80px 20px 0;line-height:40px}
+.navigation-down .menu-1 dl{margin:10px 16px 0px 16px;*margin:0px 16px 0px 16px }
+.navigation-down .menu-1 dt{font:normal 13px "microsoft yahei";color:#333333;border-bottom:1px solid #61789e;}
+.navigation-down .menu-1 dd a{color:#f06b00;font:normal 13px/30px "microsoft yahei";}
+.navigation-down .menu-1 dd a:hover{color:#f06b00}
+.navigation-down .menu-2 dd a,.navigation-down .menu-3 dd a{color:#222222;font:normal 13px "microsoft yahei"}
+.navigation-down .menu-2 dd a,.navigation-down .menu-3 dd a:hover{text-decoration:none;color:#999999}
