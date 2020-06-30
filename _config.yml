@@ -1,12 +1,11 @@
 # Site settings
-name: 董小姐
-location: 大连
-company: IBM
-position: Java开发工程师
-github: https://github.com/
-facebook: https://www.facebook.com/
-phone: 1580424XXXX
-email: xxxx@xxx.com
+name: 刘鼎豪
+location: 浙江
+company: Google
+position: 划水大师，白嫖领袖
+github: https://github.com/ringldh
+phone: 13222488692
+email: 1837169149@qq.com  ringldh@gmail.com
 
 baseurl: "/resume.io"
 
