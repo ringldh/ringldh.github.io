@@ -4,7 +4,16 @@
   <url>
     <loc>https://ringldh.github.io/post/0.html</loc>
     
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ringldh.github.io/post/0.html</loc>
+    
+    <lastmod>2024-03-05</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -193,7 +202,7 @@
 
   <url>
     <loc>https://ringldh.github.io/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -201,21 +210,21 @@
   
   <url>
     <loc>https://ringldh.github.io/tags/math/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ringldh.github.io/tags/hexo/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ringldh.github.io/tags/new-yilia/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -224,28 +233,28 @@
   
   <url>
     <loc>https://ringldh.github.io/categories/math/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ringldh.github.io/categories/%E5%8D%9A%E5%AE%A2Blog/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ringldh.github.io/categories/%E5%8D%9A%E5%AE%A2Blog/hexo/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ringldh.github.io/categories/%E5%8D%9A%E5%AE%A2Blog/new-yilia/</loc>
-    <lastmod>2024-03-04</lastmod>
+    <lastmod>2024-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
