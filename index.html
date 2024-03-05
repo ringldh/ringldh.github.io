@@ -578,7 +578,7 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
-    <article id="post-Daily" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 	
@@ -586,22 +586,37 @@ var _hmt = _hmt || [];
 	  <!-- 添加分类与标签 -->
 	  
 		  
-		  <h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>电脑thinkpad*1</p>
-<p>要钱*2</p>
-<p>comate 体验</p>
-<p>gitea安装部署<br>docker部署<br>手动部署</p>
-<p>一个技术贴</p>
-<p>两个模仿</p>
-<p>更新blog时间</p>
-<p>探究一下这玩意在哪儿收益高</p>
-<h2 id="Daily"><a href="#Daily" class="headerlink" title="Daily"></a>Daily</h2><p>废物*4</p>
-<p>洗个脸*1</p>
-<p>健康生活</p>
-<p>每天五千字</p>
-<p>周末一万字</p>
-<h2 id="Week"><a href="#Week" class="headerlink" title="Week"></a>Week</h2><p>Vue</p>
-<p>Flask</p>
-<p>Django</p>
+		  <h1 id="ubuntu安装mysql："><a href="#ubuntu安装mysql：" class="headerlink" title="ubuntu安装mysql："></a>ubuntu安装mysql：</h1><h3 id="直接使用apt方式即可："><a href="#直接使用apt方式即可：" class="headerlink" title="直接使用apt方式即可："></a>直接使用apt方式即可：</h3><p><code>sudo apt install mysql-server</code></p>
+<p>安装完成之后就已经开始运行mysql了，同时也自动配置好了开机启动。</p>
+<h3 id="服务管理："><a href="#服务管理：" class="headerlink" title="服务管理："></a>服务管理：</h3><p><code>sudo service mysql status/start/stop/restart</code></p>
+<h3 id="第一次安装后的一些配置："><a href="#第一次安装后的一些配置：" class="headerlink" title="第一次安装后的一些配置："></a>第一次安装后的一些配置：</h3><p>首先就是要修改root账户的密码。在此之前，需要先登录。</p>
+<h4 id="登录："><a href="#登录：" class="headerlink" title="登录："></a>登录：</h4><p>可以使用默认账户登录或者直接进入mysql</p>
+<h5 id="使用默认账户登录"><a href="#使用默认账户登录" class="headerlink" title="使用默认账户登录"></a>使用默认账户登录</h5><p>使用以下命令查看默认密码：</p>
+<p><code>sudo cat /etc/mysql/debian.cnf</code></p>
+<h5 id="直接进入mysql"><a href="#直接进入mysql" class="headerlink" title="直接进入mysql"></a>直接进入mysql</h5><p><code>sudo mysql</code></p>
+<h4 id="查看用户信息："><a href="#查看用户信息：" class="headerlink" title="查看用户信息："></a>查看用户信息：</h4><p><code>use mysql</code></p>
+<p><code>select host,user from user;</code></p>
+<h4 id="修改密码："><a href="#修改密码：" class="headerlink" title="修改密码："></a>修改密码：</h4><p><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;</code></p>
+<p>这里的123456就是你的新密码</p>
+<p>修改完成之后记得刷新一下：</p>
+<p><code>FLUSH PRIVILEGES;</code></p>
+<h4 id="允许root用户远程登录"><a href="#允许root用户远程登录" class="headerlink" title="允许root用户远程登录"></a>允许root用户远程登录</h4><p>允许root用户远程连接：</p>
+<p><code>create user &#39;root&#39;@&#39;%&#39; identified by &#39;123456&#39;;</code></p>
+<p>授予权限：</p>
+<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION;</code></p>
+<p>刷新权限：</p>
+<p><code>FLUSH PRIVILEGES;</code></p>
+<p>这样子就完成了权限设置，但是还没结束。mysql默认的配置文件禁止了远程登录,如果要远程连接，需要去设置一下。</p>
+<p>首先关闭mysql服务：</p>
+<p><code>sudo systemctl stop mysql</code></p>
+<p>编辑mysql配置文件。我这里使用的编辑器是nano。你也可以换成你喜欢的编辑器，比如vim：</p>
+<p><code>sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+<p>注释或者删除掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind-address           = 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>重新开启mysql服务：</p>
+<p><code>sudo service mysql start</code></p>
+<p>现在基本就配置完成了。</p>
 
 				  
 	  
@@ -734,7 +749,7 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
-    <article id="post-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-tab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 	
@@ -742,37 +757,8 @@ var _hmt = _hmt || [];
 	  <!-- 添加分类与标签 -->
 	  
 		  
-		  <h1 id="ubuntu安装mysql："><a href="#ubuntu安装mysql：" class="headerlink" title="ubuntu安装mysql："></a>ubuntu安装mysql：</h1><h3 id="直接使用apt方式即可："><a href="#直接使用apt方式即可：" class="headerlink" title="直接使用apt方式即可："></a>直接使用apt方式即可：</h3><p><code>sudo apt install mysql-server</code></p>
-<p>安装完成之后就已经开始运行mysql了，同时也自动配置好了开机启动。</p>
-<h3 id="服务管理："><a href="#服务管理：" class="headerlink" title="服务管理："></a>服务管理：</h3><p><code>sudo service mysql status/start/stop/restart</code></p>
-<h3 id="第一次安装后的一些配置："><a href="#第一次安装后的一些配置：" class="headerlink" title="第一次安装后的一些配置："></a>第一次安装后的一些配置：</h3><p>首先就是要修改root账户的密码。在此之前，需要先登录。</p>
-<h4 id="登录："><a href="#登录：" class="headerlink" title="登录："></a>登录：</h4><p>可以使用默认账户登录或者直接进入mysql</p>
-<h5 id="使用默认账户登录"><a href="#使用默认账户登录" class="headerlink" title="使用默认账户登录"></a>使用默认账户登录</h5><p>使用以下命令查看默认密码：</p>
-<p><code>sudo cat /etc/mysql/debian.cnf</code></p>
-<h5 id="直接进入mysql"><a href="#直接进入mysql" class="headerlink" title="直接进入mysql"></a>直接进入mysql</h5><p><code>sudo mysql</code></p>
-<h4 id="查看用户信息："><a href="#查看用户信息：" class="headerlink" title="查看用户信息："></a>查看用户信息：</h4><p><code>use mysql</code></p>
-<p><code>select host,user from user;</code></p>
-<h4 id="修改密码："><a href="#修改密码：" class="headerlink" title="修改密码："></a>修改密码：</h4><p><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;</code></p>
-<p>这里的123456就是你的新密码</p>
-<p>修改完成之后记得刷新一下：</p>
-<p><code>FLUSH PRIVILEGES;</code></p>
-<h4 id="允许root用户远程登录"><a href="#允许root用户远程登录" class="headerlink" title="允许root用户远程登录"></a>允许root用户远程登录</h4><p>允许root用户远程连接：</p>
-<p><code>create user &#39;root&#39;@&#39;%&#39; identified by &#39;123456&#39;;</code></p>
-<p>授予权限：</p>
-<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION;</code></p>
-<p>刷新权限：</p>
-<p><code>FLUSH PRIVILEGES;</code></p>
-<p>这样子就完成了权限设置，但是还没结束。mysql默认的配置文件禁止了远程登录,如果要远程连接，需要去设置一下。</p>
-<p>首先关闭mysql服务：</p>
-<p><code>sudo systemctl stop mysql</code></p>
-<p>编辑mysql配置文件。我这里使用的编辑器是nano。你也可以换成你喜欢的编辑器，比如vim：</p>
-<p><code>sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
-<p>注释或者删除掉</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind-address           = 127.0.0.1</span><br></pre></td></tr></table></figure>
-
-<p>重新开启mysql服务：</p>
-<p><code>sudo service mysql start</code></p>
-<p>现在基本就配置完成了。</p>
+		  <p>8g 120</p>
+<p>85 610</p>
 
 				  
 	  
@@ -835,7 +821,7 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
-    <article id="post-tab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-原本草稿" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 	
@@ -843,8 +829,75 @@ var _hmt = _hmt || [];
 	  <!-- 添加分类与标签 -->
 	  
 		  
-		  <p>8g 120</p>
-<p>85 610</p>
+		  <p>这是一个关于数据库设计和实现的大作业。以下是一个关于宿舍管理系统的案例实施方案，包含了数据库的创建、表的设计、数据录入和查询实现：</p>
+<h3 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h3><h4 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1. 创建数据库"></a>1. 创建数据库</h4><ul>
+<li>数据库名称：<code>sushe</code></li>
+<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE sushe;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-创建表结构"><a href="#2-创建表结构" class="headerlink" title="2. 创建表结构"></a>2. 创建表结构</h4><ul>
+<li><p><strong>学生表(Student)</strong></p>
+<ul>
+<li>字段：ID（主键）, 姓名, 性别, 年龄, 班级ID</li>
+<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  Name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  Gender <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">  Age <span class="type">INT</span>,</span><br><span class="line">  ClassID <span class="type">INT</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>班级表(Class)</strong></p>
+<ul>
+<li>字段：ID（主键）, 班级名称, 辅导员</li>
+<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Class (</span><br><span class="line">  ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  ClassName <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  Counselor <span class="type">VARCHAR</span>(<span class="number">50</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>宿舍表(Dormitory)</strong></p>
+<ul>
+<li>字段：宿舍号（主键）, 楼层, 可容纳人数</li>
+<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Dormitory (</span><br><span class="line">  DormitoryID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  Floor <span class="type">INT</span>,</span><br><span class="line">  Capacity <span class="type">INT</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>宿舍分配表(DormitoryAssignment)</strong></p>
+<ul>
+<li>字段：学生ID, 宿舍号（混合主键）</li>
+<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> DormitoryAssignment (</span><br><span class="line">  StudentID <span class="type">INT</span>,</span><br><span class="line">  DormitoryID <span class="type">INT</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (StudentID, DormitoryID),</span><br><span class="line">  <span class="keyword">FOREIGN</span> KEY (StudentID) <span class="keyword">REFERENCES</span> Student(ID),</span><br><span class="line">  <span class="keyword">FOREIGN</span> KEY (DormitoryID) <span class="keyword">REFERENCES</span> Dormitory(DormitoryID)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>请注意，每种查询不少于五个，请整理好后，给我 单表查询，交叉表查询，统计查询，聚集查询，子查询，实现对表结构和表记录进行操纵的查询</p>
+<p> 好的,我重新为每个表插入20条具体的数据,语句如下:</p>
+<p><strong>向Student表插入数据:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1001</span>, <span class="string">&#x27;张三&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1002</span>, <span class="string">&#x27;李四&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1003</span>, <span class="string">&#x27;王五&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1004</span>, <span class="string">&#x27;赵六&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1005</span>, <span class="string">&#x27;孙七&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1006</span>, <span class="string">&#x27;周八&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">19</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1007</span>, <span class="string">&#x27;吴九&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">2</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1008</span>, <span class="string">&#x27;郑十&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1009</span>, <span class="string">&#x27;王十一&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1010</span>, <span class="string">&#x27;张十二&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">20</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1011</span>, <span class="string">&#x27;宋十三&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">18</span>, <span class="number">4</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1012</span>, <span class="string">&#x27;李十四&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">19</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1013</span>, <span class="string">&#x27;陈十五&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">18</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1014</span>, <span class="string">&#x27;黄十六&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">17</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1015</span>, <span class="string">&#x27;张十七&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">5</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1016</span>, <span class="string">&#x27;王十八&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">18</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1017</span>, <span class="string">&#x27;李十九&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">19</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1018</span>, <span class="string">&#x27;赵二十&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">6</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1019</span>, <span class="string">&#x27;孙二十一&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1020</span>, <span class="string">&#x27;周二十二&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>向Class表插入数据:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;一年一班&#x27;</span>, <span class="string">&#x27;陈老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;一年二班&#x27;</span>, <span class="string">&#x27;李老师&#x27;</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;一年三班&#x27;</span>, <span class="string">&#x27;王老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="string">&#x27;一年四班&#x27;</span>, <span class="string">&#x27;张老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="string">&#x27;一年五班&#x27;</span>, <span class="string">&#x27;赵老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">6</span>, <span class="string">&#x27;一年六班&#x27;</span>, <span class="string">&#x27;孙老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">7</span>, <span class="string">&#x27;二年一班&#x27;</span>, <span class="string">&#x27;周老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">8</span>, <span class="string">&#x27;二年二班&#x27;</span>, <span class="string">&#x27;郑老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">9</span>, <span class="string">&#x27;二年三班&#x27;</span>, <span class="string">&#x27;吴老师&#x27;</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">10</span>, <span class="string">&#x27;二年四班&#x27;</span>, <span class="string">&#x27;宋老师&#x27;</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">11</span>, <span class="string">&#x27;三年一班&#x27;</span>, <span class="string">&#x27;黄老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">12</span>, <span class="string">&#x27;三年二班&#x27;</span>, <span class="string">&#x27;杨老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">13</span>, <span class="string">&#x27;三年三班&#x27;</span>, <span class="string">&#x27;马老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">14</span>, <span class="string">&#x27;三年四班&#x27;</span>, <span class="string">&#x27;苏老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">15</span>, <span class="string">&#x27;三年五班&#x27;</span>, <span class="string">&#x27;董老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">16</span>, <span class="string">&#x27;四年一班&#x27;</span>, <span class="string">&#x27;王老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">17</span>, <span class="string">&#x27;四年二班&#x27;</span>, <span class="string">&#x27;冯老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">18</span>, <span class="string">&#x27;四年三班&#x27;</span>, <span class="string">&#x27;朱老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">19</span>, <span class="string">&#x27;四年四班&#x27;</span>, <span class="string">&#x27;曹老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">20</span>, <span class="string">&#x27;四年五班&#x27;</span>, <span class="string">&#x27;丁老师&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>向Dormitory表插入数据:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">101</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">102</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">103</span>, <span class="number">1</span>, <span class="number">4</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">104</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">105</span>, <span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">106</span>, <span class="number">2</span>, <span class="number">4</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">107</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">108</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">109</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">110</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">111</span>, <span class="number">3</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">112</span>, <span class="number">3</span>, <span class="number">6</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">113</span>, <span class="number">4</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">114</span>, <span class="number">4</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">115</span>, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">116</span>, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">117</span>, <span class="number">5</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">118</span>, <span class="number">5</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">119</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">120</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>向DormitoryAssignment表插入数据:</strong>  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1001</span>, <span class="number">101</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1002</span>, <span class="number">101</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1003</span>, <span class="number">101</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1004</span>, <span class="number">101</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1005</span>, <span class="number">102</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1006</span>, <span class="number">102</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1007</span>, <span class="number">102</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1008</span>, <span class="number">102</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1009</span>, <span class="number">103</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1010</span>, <span class="number">103</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1011</span>, <span class="number">103</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1012</span>, <span class="number">103</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1013</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1014</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1015</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1016</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1017</span>, <span class="number">105</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1018</span>, <span class="number">105</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1019</span>, <span class="number">105</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1020</span>, <span class="number">105</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>单表查询:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 查询所有学生信息</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> Student;</span><br><span class="line"></span><br><span class="line"># 查询学号为<span class="number">1001</span>的学生姓名和性别  </span><br><span class="line"><span class="keyword">SELECT</span> Name, Gender <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> ID <span class="operator">=</span> <span class="number">1001</span>;</span><br><span class="line"></span><br><span class="line"># 查询年龄大于<span class="number">20</span>岁的学生姓名和年龄</span><br><span class="line"><span class="keyword">SELECT</span> Name, Age <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> Age <span class="operator">&gt;</span> <span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"># 查询所有女生信息</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> Gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 查询学号,姓名和班级名称</span><br><span class="line"><span class="keyword">SELECT</span> s.ID, s.Name, c.ClassName </span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Class c <span class="keyword">ON</span> s.ClassID <span class="operator">=</span> c.ID;</span><br></pre></td></tr></table></figure>
+
+<p><strong>交叉表查询:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 查询每个班级的学生人数</span><br><span class="line"><span class="keyword">SELECT</span> c.ClassName, <span class="built_in">COUNT</span>(s.ID) <span class="keyword">AS</span> NumOfStudents</span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Class c <span class="keyword">ON</span> s.ClassID <span class="operator">=</span> c.ID</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> c.ClassName;</span><br><span class="line"></span><br><span class="line"># 查询每个宿舍的住人数</span><br><span class="line"><span class="keyword">SELECT</span> d.DormitoryID, <span class="built_in">COUNT</span>(sa.StudentID) <span class="keyword">AS</span> Occupancy  </span><br><span class="line"><span class="keyword">FROM</span> DormitoryAssignment sa <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Dormitory d </span><br><span class="line"><span class="keyword">ON</span> sa.DormitoryID <span class="operator">=</span> d.DormitoryID</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> d.DormitoryID;</span><br><span class="line"></span><br><span class="line"># 查询每间宿舍已住和未住人数</span><br><span class="line"><span class="keyword">SELECT</span> d.DormitoryID, d.Capacity <span class="keyword">AS</span> Total, <span class="built_in">COUNT</span>(sa.StudentID) <span class="keyword">AS</span> Occupied, d.Capacity <span class="operator">-</span> <span class="built_in">COUNT</span>(sa.StudentID) <span class="keyword">AS</span> Vacancies</span><br><span class="line"><span class="keyword">FROM</span> Dormitory d <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DormitoryAssignment sa</span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> sa.DormitoryID</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> d.DormitoryID;</span><br><span class="line"></span><br><span class="line"># 查询每名学生的宿舍号  </span><br><span class="line"><span class="keyword">SELECT</span> s.ID, s.Name, IFNULL(da.DormitoryID, <span class="string">&#x27;未分配&#x27;</span>) <span class="keyword">AS</span> DormitoryID</span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DormitoryAssignment da</span><br><span class="line"><span class="keyword">ON</span> s.ID <span class="operator">=</span> da.StudentID; </span><br></pre></td></tr></table></figure>
+
+<p><strong>统计查询:</strong>  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 统计男女生人数</span><br><span class="line"><span class="keyword">SELECT</span> Gender, <span class="built_in">COUNT</span>(ID) <span class="keyword">AS</span> NumOfStudents</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Gender;</span><br><span class="line"></span><br><span class="line"># 统计大于<span class="number">20</span>岁学生的数量</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(ID) <span class="keyword">AS</span> NumOfAdultStudents</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Age <span class="operator">&gt;</span> <span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"># 统计每层宿舍数量</span><br><span class="line"><span class="keyword">SELECT</span> Floor, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> NumOfDorms </span><br><span class="line"><span class="keyword">FROM</span> Dormitory</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Floor;</span><br><span class="line"></span><br><span class="line"># 统计空床位数</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(d.Capacity <span class="operator">-</span> IFNULL(b.Occupancy, <span class="number">0</span>)) <span class="keyword">AS</span> Vacancies</span><br><span class="line"><span class="keyword">FROM</span> Dormitory d <span class="keyword">LEFT</span> <span class="keyword">JOIN</span>  </span><br><span class="line">(<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> Occupancy</span><br><span class="line"><span class="keyword">FROM</span> DormitoryAssignment <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) b</span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> b.DormitoryID;</span><br></pre></td></tr></table></figure>
+
+<p><strong>聚集查询:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 查询年龄最大的学生信息 </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Age <span class="operator">=</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(Age) <span class="keyword">FROM</span> Student);</span><br><span class="line"></span><br><span class="line"># 查询容纳人数第二多的宿舍</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> Dormitory</span><br><span class="line"><span class="keyword">WHERE</span> Capacity <span class="operator">=</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Capacity</span><br><span class="line">  <span class="keyword">FROM</span> Dormitory</span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> Capacity <span class="keyword">DESC</span></span><br><span class="line">  LIMIT <span class="number">1</span> <span class="keyword">OFFSET</span> <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 查询人数最多宿舍信息</span><br><span class="line"><span class="keyword">SELECT</span> d.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Dormitory d </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">   (<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> num</span><br><span class="line">    <span class="keyword">FROM</span> DormitoryAssignment  </span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) da  </span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> da.DormitoryID</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> da.num <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"># 查询年龄最小的女生信息  </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  </span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Age <span class="keyword">ASC</span></span><br><span class="line">LIMIT <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>子查询:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 查询每个宿舍剩余可容纳人数</span><br><span class="line"><span class="keyword">SELECT</span> d.<span class="operator">*</span>, d.Capacity <span class="operator">-</span> IFNULL(b.Occupancy, <span class="number">0</span>) <span class="keyword">AS</span> Vacancy</span><br><span class="line"><span class="keyword">FROM</span> Dormitory d <span class="keyword">LEFT</span> <span class="keyword">JOIN</span></span><br><span class="line">(<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> Occupancy </span><br><span class="line"> <span class="keyword">FROM</span> DormitoryAssignment <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) b </span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> b.DormitoryID;</span><br><span class="line"></span><br><span class="line"># 查询姓名中包含<span class="string">&#x27;四&#x27;</span>字的学生姓名和班级名称</span><br><span class="line"><span class="keyword">SELECT</span> s.Name, c.ClassName</span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Class c <span class="keyword">ON</span> s.ClassID <span class="operator">=</span> c.ID</span><br><span class="line"><span class="keyword">WHERE</span> s.Name <span class="keyword">LIKE</span> <span class="string">&#x27;%四%&#x27;</span>; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查询每间宿舍剩余床位数最多的宿舍  </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Dormitory</span><br><span class="line"><span class="keyword">WHERE</span> (Capacity <span class="operator">-</span> IFNULL((</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(StudentID) </span><br><span class="line">  <span class="keyword">FROM</span> DormitoryAssignment</span><br><span class="line">  <span class="keyword">WHERE</span> Dormitory.DormitoryID <span class="operator">=</span> DormitoryAssignment.DormitoryID</span><br><span class="line">), <span class="number">0</span>)) <span class="operator">=</span> (  </span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">MAX</span>(Capacity <span class="operator">-</span> IFNULL(Occupancy, <span class="number">0</span>))</span><br><span class="line">  <span class="keyword">FROM</span></span><br><span class="line">  (<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> Occupancy</span><br><span class="line">   <span class="keyword">FROM</span> DormitoryAssignment  </span><br><span class="line">   <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) t1</span><br><span class="line">  <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Dormitory t2</span><br><span class="line">  <span class="keyword">ON</span> t1.DormitoryID <span class="operator">=</span> t2.DormitoryID</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 查询姓名中包含“三”的女生姓名和年龄 </span><br><span class="line"><span class="keyword">SELECT</span> Name, Age </span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Name <span class="keyword">LIKE</span> <span class="string">&#x27;%三%&#x27;</span></span><br><span class="line"><span class="keyword">AND</span> Gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>表记录操纵:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 向学生表中插入一条记录</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student (ID, Name, Gender, Age, ClassID) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">1082</span>, <span class="string">&#x27;李明&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"># 更新ID为<span class="number">1001</span>的学生年龄 </span><br><span class="line"><span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> Age <span class="operator">=</span> Age <span class="operator">+</span> <span class="number">1</span> <span class="keyword">WHERE</span> ID <span class="operator">=</span> <span class="number">1001</span>;  </span><br><span class="line"></span><br><span class="line"># 删除班级名称为一年一班的记录</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Class <span class="keyword">WHERE</span> ClassName <span class="operator">=</span> <span class="string">&#x27;一年一班&#x27;</span>;</span><br><span class="line"></span><br><span class="line">修改宿舍表的楼层字段类型</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Dormitory </span><br><span class="line">MODIFY <span class="keyword">COLUMN</span> Floor <span class="type">VARCHAR</span>(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">更新学生表中姓名为“张三”的学生的年龄增加一岁</span><br><span class="line"><span class="keyword">UPDATE</span> Student </span><br><span class="line"><span class="keyword">SET</span> Age <span class="operator">=</span> Age <span class="operator">+</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">WHERE</span> Name <span class="operator">=</span> <span class="string">&#x27;张三&#x27;</span>; </span><br></pre></td></tr></table></figure>
+
+
+
 
 				  
 	  
@@ -1095,6 +1148,172 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
+    <article id="post-斐讯K2P" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>K2P是斐讯在2017年推出的一款路由器，当时因为促销活动也是一机难求，在后续翻车后，又因为其优秀的做工和出色的信号饱受垃圾佬的好评。如今已经是2024年，距离K2P的发布也已经有七年了，在2024年的今天，斐讯K2P还能否胜任日趋复杂的网络环境呢？</p>
+<h2 id="硬件简介"><a href="#硬件简介" class="headerlink" title="硬件简介"></a>硬件简介</h2><p>本次测试使用的版本是K2P A2版本，搭载的是联发科MT7621ASOC，配以128MB DDR3内存和16MB的闪存，一个WAN口和4个LAN口，均为千兆设计。</p>
+<p><img src="/Users/liudinghao/Pictures/vlcsnap-2024-02-24-21h56m18s849.png" alt="vlcsnap-2024-02-24-21h56m18s849"></p>
+<h2 id="刷机教程"><a href="#刷机教程" class="headerlink" title="刷机教程"></a>刷机教程</h2><p>老毛子固件使用简单，操作方便，并且集成了很多常见的功能，基本可以做到开箱即用，是我常用的路由操作系统，下载地址可以到<a target="_blank" rel="noopener" href="https://opt.cn2qq.com/padavan">这里</a>寻找。现在市面上的K2P基本上都已经刷好了不死鸟，如果没有的话自行按照教程刷入不死鸟即可。我们将电脑连接到路由器的LAN口，然后将路由器断电，给其通电并按住复位键五到十秒，到路由器指示灯蓝光闪烁即可，然后在电脑上访问192.168.1.1即可进入breed页面：</p>
+<p><img src="/Users/liudinghao/Pictures/vlcsnap-2024-02-24-22h00m05s297.png" alt="vlcsnap-2024-02-24-22h00m05s297"></p>
+<p>然后就在这个页面选择刚刚下载的固件刷入就可以了。这里布局就选公办就可以。如果之前用的是其它的系统，在刷入之前最好先恢复一下出厂设置。</p>
+<p>然后我们就只需要等待进度条跑完就可以了，进度条跑完之前不要给路由器断电！</p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240224_1708783406.png" alt="vlcsnap-2024-02-24-22h00m16s968"></p>
+<p>进度条完成之后稍等一两分钟，就可以访问192.168.123.1查看老毛子的工作台了。</p>
+<p><img src="/Users/liudinghao/Pictures/vlcsnap-2024-02-24-22h00m33s112.png" alt="vlcsnap-2024-02-24-22h00m33s112"></p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+	
+	  <!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
+      
+
+	  
+	  <!-- 添加展开全文 -->
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
+        </p>
+      
+	  
+	  <!-- 添加分享 -->
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+  </div>
+</aside>
+
+<!-- 添加评论 -->
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
+  
+    <article id="post-Daily" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>电脑thinkpad*1</p>
+<p>要钱*2</p>
+<p>comate 体验</p>
+<p>gitea安装部署<br>docker部署<br>手动部署</p>
+<p>一个技术贴</p>
+<p>两个模仿</p>
+<p>更新blog时间</p>
+<p>探究一下这玩意在哪儿收益高</p>
+<h2 id="Daily"><a href="#Daily" class="headerlink" title="Daily"></a>Daily</h2><p>废物*4</p>
+<p>洗个脸*1</p>
+<p>健康生活</p>
+<p>每天五千字</p>
+<p>周末一万字</p>
+<h2 id="Week"><a href="#Week" class="headerlink" title="Week"></a>Week</h2><p>Vue</p>
+<p>Flask</p>
+<p>Django</p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+	
+	  <!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
+      
+
+	  
+	  <!-- 添加展开全文 -->
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
+        </p>
+      
+	  
+	  <!-- 添加分享 -->
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+  </div>
+</aside>
+
+<!-- 添加评论 -->
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
+  
     <article id="post-安装node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1104,7 +1323,7 @@ var _hmt = _hmt || [];
 	  
 		  
 		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近迁移了服务器，在新服务器上需要重新安装一遍环境。</p>
-<h3 id="Node5"><a href="#Node5" class="headerlink" title="Node5"></a>Node5</h3><p>我这里安装的是最新的长期支持版20.11.0。</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>我这里安装的是最新的长期支持版20.11.0。</p>
 <p>首先在<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网</a>查找对应版本的下载链接，我这里是Linux x64，链接是<code>https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</code></p>
 <p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176192.png" alt="image-20240125174952914"></p>
 <p>安装其实还是比较容易的，我这里参考的是官方的安装指南，只是稍微改动了一下版本号。</p>
@@ -1128,225 +1347,6 @@ var _hmt = _hmt || [];
 <p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176775.png" alt="image-20240125175935188"></p>
 <p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176745.png" alt="image-20240125175905912"></p>
 <p>现在就可以愉快的使用啦</p>
-
-				  
-	  
-      
-	  <!-- 添加打赏 -->
-	  
-	
-	  <!-- 添加版权声明 -->
-      
-	  
-	</div>
-	
-	<!-- 添加置顶 -->
-    <div class="article-info article-info-index">
-      
-	  
-	  <!-- 分类页 -->
-      
-      
-
-	  
-	  <!-- 添加展开全文 -->
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
-        </p>
-      
-	  
-	  <!-- 添加分享 -->
-      
-	  
-      <div class="clearfix"></div>
-	  
-    </div>
-  </div>
-</article>
-
-
-
-<!-- 添加回到顶部和文章目录 -->
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-      </div>
-    
-    
-  </div>
-</aside>
-
-<!-- 添加评论 -->
-
-
-<!-- 文章页添加mathjax公式 -->
-
-  
-
-<!-- 文章页添加mathjax公式 -->
-  
-    <article id="post-原本草稿" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-	
-    <div class="article-entry" itemprop="articleBody">
-	  <!-- 添加分类与标签 -->
-	  
-		  
-		  <p>这是一个关于数据库设计和实现的大作业。以下是一个关于宿舍管理系统的案例实施方案，包含了数据库的创建、表的设计、数据录入和查询实现：</p>
-<h3 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h3><h4 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1. 创建数据库"></a>1. 创建数据库</h4><ul>
-<li>数据库名称：<code>sushe</code></li>
-<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE sushe;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-创建表结构"><a href="#2-创建表结构" class="headerlink" title="2. 创建表结构"></a>2. 创建表结构</h4><ul>
-<li><p><strong>学生表(Student)</strong></p>
-<ul>
-<li>字段：ID（主键）, 姓名, 性别, 年龄, 班级ID</li>
-<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  Name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  Gender <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">  Age <span class="type">INT</span>,</span><br><span class="line">  ClassID <span class="type">INT</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>班级表(Class)</strong></p>
-<ul>
-<li>字段：ID（主键）, 班级名称, 辅导员</li>
-<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Class (</span><br><span class="line">  ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  ClassName <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  Counselor <span class="type">VARCHAR</span>(<span class="number">50</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>宿舍表(Dormitory)</strong></p>
-<ul>
-<li>字段：宿舍号（主键）, 楼层, 可容纳人数</li>
-<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Dormitory (</span><br><span class="line">  DormitoryID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  Floor <span class="type">INT</span>,</span><br><span class="line">  Capacity <span class="type">INT</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>宿舍分配表(DormitoryAssignment)</strong></p>
-<ul>
-<li>字段：学生ID, 宿舍号（混合主键）</li>
-<li>创建语句：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> DormitoryAssignment (</span><br><span class="line">  StudentID <span class="type">INT</span>,</span><br><span class="line">  DormitoryID <span class="type">INT</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (StudentID, DormitoryID),</span><br><span class="line">  <span class="keyword">FOREIGN</span> KEY (StudentID) <span class="keyword">REFERENCES</span> Student(ID),</span><br><span class="line">  <span class="keyword">FOREIGN</span> KEY (DormitoryID) <span class="keyword">REFERENCES</span> Dormitory(DormitoryID)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<p>请注意，每种查询不少于五个，请整理好后，给我 单表查询，交叉表查询，统计查询，聚集查询，子查询，实现对表结构和表记录进行操纵的查询</p>
-<p> 好的,我重新为每个表插入20条具体的数据,语句如下:</p>
-<p><strong>向Student表插入数据:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1001</span>, <span class="string">&#x27;张三&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1002</span>, <span class="string">&#x27;李四&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1003</span>, <span class="string">&#x27;王五&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1004</span>, <span class="string">&#x27;赵六&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1005</span>, <span class="string">&#x27;孙七&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1006</span>, <span class="string">&#x27;周八&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">19</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1007</span>, <span class="string">&#x27;吴九&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">2</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1008</span>, <span class="string">&#x27;郑十&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1009</span>, <span class="string">&#x27;王十一&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1010</span>, <span class="string">&#x27;张十二&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">20</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1011</span>, <span class="string">&#x27;宋十三&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">18</span>, <span class="number">4</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1012</span>, <span class="string">&#x27;李十四&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">19</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1013</span>, <span class="string">&#x27;陈十五&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">18</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1014</span>, <span class="string">&#x27;黄十六&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">17</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1015</span>, <span class="string">&#x27;张十七&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">5</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1016</span>, <span class="string">&#x27;王十八&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">18</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1017</span>, <span class="string">&#x27;李十九&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">19</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1018</span>, <span class="string">&#x27;赵二十&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">6</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1019</span>, <span class="string">&#x27;孙二十一&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">17</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">VALUES</span> (<span class="number">1020</span>, <span class="string">&#x27;周二十二&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="number">16</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>向Class表插入数据:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;一年一班&#x27;</span>, <span class="string">&#x27;陈老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;一年二班&#x27;</span>, <span class="string">&#x27;李老师&#x27;</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;一年三班&#x27;</span>, <span class="string">&#x27;王老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="string">&#x27;一年四班&#x27;</span>, <span class="string">&#x27;张老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="string">&#x27;一年五班&#x27;</span>, <span class="string">&#x27;赵老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">6</span>, <span class="string">&#x27;一年六班&#x27;</span>, <span class="string">&#x27;孙老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">7</span>, <span class="string">&#x27;二年一班&#x27;</span>, <span class="string">&#x27;周老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">8</span>, <span class="string">&#x27;二年二班&#x27;</span>, <span class="string">&#x27;郑老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">9</span>, <span class="string">&#x27;二年三班&#x27;</span>, <span class="string">&#x27;吴老师&#x27;</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">10</span>, <span class="string">&#x27;二年四班&#x27;</span>, <span class="string">&#x27;宋老师&#x27;</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">11</span>, <span class="string">&#x27;三年一班&#x27;</span>, <span class="string">&#x27;黄老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">12</span>, <span class="string">&#x27;三年二班&#x27;</span>, <span class="string">&#x27;杨老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">13</span>, <span class="string">&#x27;三年三班&#x27;</span>, <span class="string">&#x27;马老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">14</span>, <span class="string">&#x27;三年四班&#x27;</span>, <span class="string">&#x27;苏老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">15</span>, <span class="string">&#x27;三年五班&#x27;</span>, <span class="string">&#x27;董老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">16</span>, <span class="string">&#x27;四年一班&#x27;</span>, <span class="string">&#x27;王老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">17</span>, <span class="string">&#x27;四年二班&#x27;</span>, <span class="string">&#x27;冯老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">18</span>, <span class="string">&#x27;四年三班&#x27;</span>, <span class="string">&#x27;朱老师&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">19</span>, <span class="string">&#x27;四年四班&#x27;</span>, <span class="string">&#x27;曹老师&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Class <span class="keyword">VALUES</span> (<span class="number">20</span>, <span class="string">&#x27;四年五班&#x27;</span>, <span class="string">&#x27;丁老师&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>向Dormitory表插入数据:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">101</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">102</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">103</span>, <span class="number">1</span>, <span class="number">4</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">104</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">105</span>, <span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">106</span>, <span class="number">2</span>, <span class="number">4</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">107</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">108</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">109</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">110</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">111</span>, <span class="number">3</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">112</span>, <span class="number">3</span>, <span class="number">6</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">113</span>, <span class="number">4</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">114</span>, <span class="number">4</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">115</span>, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">116</span>, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">117</span>, <span class="number">5</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">118</span>, <span class="number">5</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">119</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Dormitory <span class="keyword">VALUES</span> (<span class="number">120</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>向DormitoryAssignment表插入数据:</strong>  </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1001</span>, <span class="number">101</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1002</span>, <span class="number">101</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1003</span>, <span class="number">101</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1004</span>, <span class="number">101</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1005</span>, <span class="number">102</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1006</span>, <span class="number">102</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1007</span>, <span class="number">102</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1008</span>, <span class="number">102</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1009</span>, <span class="number">103</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1010</span>, <span class="number">103</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1011</span>, <span class="number">103</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1012</span>, <span class="number">103</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1013</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1014</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1015</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1016</span>, <span class="number">104</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1017</span>, <span class="number">105</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1018</span>, <span class="number">105</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1019</span>, <span class="number">105</span>);  </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DormitoryAssignment <span class="keyword">VALUES</span> (<span class="number">1020</span>, <span class="number">105</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><strong>单表查询:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 查询所有学生信息</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> Student;</span><br><span class="line"></span><br><span class="line"># 查询学号为<span class="number">1001</span>的学生姓名和性别  </span><br><span class="line"><span class="keyword">SELECT</span> Name, Gender <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> ID <span class="operator">=</span> <span class="number">1001</span>;</span><br><span class="line"></span><br><span class="line"># 查询年龄大于<span class="number">20</span>岁的学生姓名和年龄</span><br><span class="line"><span class="keyword">SELECT</span> Name, Age <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> Age <span class="operator">&gt;</span> <span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"># 查询所有女生信息</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> Gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 查询学号,姓名和班级名称</span><br><span class="line"><span class="keyword">SELECT</span> s.ID, s.Name, c.ClassName </span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Class c <span class="keyword">ON</span> s.ClassID <span class="operator">=</span> c.ID;</span><br></pre></td></tr></table></figure>
-
-<p><strong>交叉表查询:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 查询每个班级的学生人数</span><br><span class="line"><span class="keyword">SELECT</span> c.ClassName, <span class="built_in">COUNT</span>(s.ID) <span class="keyword">AS</span> NumOfStudents</span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Class c <span class="keyword">ON</span> s.ClassID <span class="operator">=</span> c.ID</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> c.ClassName;</span><br><span class="line"></span><br><span class="line"># 查询每个宿舍的住人数</span><br><span class="line"><span class="keyword">SELECT</span> d.DormitoryID, <span class="built_in">COUNT</span>(sa.StudentID) <span class="keyword">AS</span> Occupancy  </span><br><span class="line"><span class="keyword">FROM</span> DormitoryAssignment sa <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Dormitory d </span><br><span class="line"><span class="keyword">ON</span> sa.DormitoryID <span class="operator">=</span> d.DormitoryID</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> d.DormitoryID;</span><br><span class="line"></span><br><span class="line"># 查询每间宿舍已住和未住人数</span><br><span class="line"><span class="keyword">SELECT</span> d.DormitoryID, d.Capacity <span class="keyword">AS</span> Total, <span class="built_in">COUNT</span>(sa.StudentID) <span class="keyword">AS</span> Occupied, d.Capacity <span class="operator">-</span> <span class="built_in">COUNT</span>(sa.StudentID) <span class="keyword">AS</span> Vacancies</span><br><span class="line"><span class="keyword">FROM</span> Dormitory d <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DormitoryAssignment sa</span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> sa.DormitoryID</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> d.DormitoryID;</span><br><span class="line"></span><br><span class="line"># 查询每名学生的宿舍号  </span><br><span class="line"><span class="keyword">SELECT</span> s.ID, s.Name, IFNULL(da.DormitoryID, <span class="string">&#x27;未分配&#x27;</span>) <span class="keyword">AS</span> DormitoryID</span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DormitoryAssignment da</span><br><span class="line"><span class="keyword">ON</span> s.ID <span class="operator">=</span> da.StudentID; </span><br></pre></td></tr></table></figure>
-
-<p><strong>统计查询:</strong>  </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 统计男女生人数</span><br><span class="line"><span class="keyword">SELECT</span> Gender, <span class="built_in">COUNT</span>(ID) <span class="keyword">AS</span> NumOfStudents</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Gender;</span><br><span class="line"></span><br><span class="line"># 统计大于<span class="number">20</span>岁学生的数量</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(ID) <span class="keyword">AS</span> NumOfAdultStudents</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Age <span class="operator">&gt;</span> <span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"># 统计每层宿舍数量</span><br><span class="line"><span class="keyword">SELECT</span> Floor, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> NumOfDorms </span><br><span class="line"><span class="keyword">FROM</span> Dormitory</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Floor;</span><br><span class="line"></span><br><span class="line"># 统计空床位数</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(d.Capacity <span class="operator">-</span> IFNULL(b.Occupancy, <span class="number">0</span>)) <span class="keyword">AS</span> Vacancies</span><br><span class="line"><span class="keyword">FROM</span> Dormitory d <span class="keyword">LEFT</span> <span class="keyword">JOIN</span>  </span><br><span class="line">(<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> Occupancy</span><br><span class="line"><span class="keyword">FROM</span> DormitoryAssignment <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) b</span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> b.DormitoryID;</span><br></pre></td></tr></table></figure>
-
-<p><strong>聚集查询:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 查询年龄最大的学生信息 </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Age <span class="operator">=</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(Age) <span class="keyword">FROM</span> Student);</span><br><span class="line"></span><br><span class="line"># 查询容纳人数第二多的宿舍</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> Dormitory</span><br><span class="line"><span class="keyword">WHERE</span> Capacity <span class="operator">=</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Capacity</span><br><span class="line">  <span class="keyword">FROM</span> Dormitory</span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> Capacity <span class="keyword">DESC</span></span><br><span class="line">  LIMIT <span class="number">1</span> <span class="keyword">OFFSET</span> <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 查询人数最多宿舍信息</span><br><span class="line"><span class="keyword">SELECT</span> d.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Dormitory d </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">   (<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> num</span><br><span class="line">    <span class="keyword">FROM</span> DormitoryAssignment  </span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) da  </span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> da.DormitoryID</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> da.num <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"># 查询年龄最小的女生信息  </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  </span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Age <span class="keyword">ASC</span></span><br><span class="line">LIMIT <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<p><strong>子查询:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 查询每个宿舍剩余可容纳人数</span><br><span class="line"><span class="keyword">SELECT</span> d.<span class="operator">*</span>, d.Capacity <span class="operator">-</span> IFNULL(b.Occupancy, <span class="number">0</span>) <span class="keyword">AS</span> Vacancy</span><br><span class="line"><span class="keyword">FROM</span> Dormitory d <span class="keyword">LEFT</span> <span class="keyword">JOIN</span></span><br><span class="line">(<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> Occupancy </span><br><span class="line"> <span class="keyword">FROM</span> DormitoryAssignment <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) b </span><br><span class="line"><span class="keyword">ON</span> d.DormitoryID <span class="operator">=</span> b.DormitoryID;</span><br><span class="line"></span><br><span class="line"># 查询姓名中包含<span class="string">&#x27;四&#x27;</span>字的学生姓名和班级名称</span><br><span class="line"><span class="keyword">SELECT</span> s.Name, c.ClassName</span><br><span class="line"><span class="keyword">FROM</span> Student s <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Class c <span class="keyword">ON</span> s.ClassID <span class="operator">=</span> c.ID</span><br><span class="line"><span class="keyword">WHERE</span> s.Name <span class="keyword">LIKE</span> <span class="string">&#x27;%四%&#x27;</span>; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查询每间宿舍剩余床位数最多的宿舍  </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> Dormitory</span><br><span class="line"><span class="keyword">WHERE</span> (Capacity <span class="operator">-</span> IFNULL((</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(StudentID) </span><br><span class="line">  <span class="keyword">FROM</span> DormitoryAssignment</span><br><span class="line">  <span class="keyword">WHERE</span> Dormitory.DormitoryID <span class="operator">=</span> DormitoryAssignment.DormitoryID</span><br><span class="line">), <span class="number">0</span>)) <span class="operator">=</span> (  </span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">MAX</span>(Capacity <span class="operator">-</span> IFNULL(Occupancy, <span class="number">0</span>))</span><br><span class="line">  <span class="keyword">FROM</span></span><br><span class="line">  (<span class="keyword">SELECT</span> DormitoryID, <span class="built_in">COUNT</span>(StudentID) <span class="keyword">AS</span> Occupancy</span><br><span class="line">   <span class="keyword">FROM</span> DormitoryAssignment  </span><br><span class="line">   <span class="keyword">GROUP</span> <span class="keyword">BY</span> DormitoryID) t1</span><br><span class="line">  <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Dormitory t2</span><br><span class="line">  <span class="keyword">ON</span> t1.DormitoryID <span class="operator">=</span> t2.DormitoryID</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 查询姓名中包含“三”的女生姓名和年龄 </span><br><span class="line"><span class="keyword">SELECT</span> Name, Age </span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> Name <span class="keyword">LIKE</span> <span class="string">&#x27;%三%&#x27;</span></span><br><span class="line"><span class="keyword">AND</span> Gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>表记录操纵:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 向学生表中插入一条记录</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student (ID, Name, Gender, Age, ClassID) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">1082</span>, <span class="string">&#x27;李明&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"># 更新ID为<span class="number">1001</span>的学生年龄 </span><br><span class="line"><span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> Age <span class="operator">=</span> Age <span class="operator">+</span> <span class="number">1</span> <span class="keyword">WHERE</span> ID <span class="operator">=</span> <span class="number">1001</span>;  </span><br><span class="line"></span><br><span class="line"># 删除班级名称为一年一班的记录</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Class <span class="keyword">WHERE</span> ClassName <span class="operator">=</span> <span class="string">&#x27;一年一班&#x27;</span>;</span><br><span class="line"></span><br><span class="line">修改宿舍表的楼层字段类型</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Dormitory </span><br><span class="line">MODIFY <span class="keyword">COLUMN</span> Floor <span class="type">VARCHAR</span>(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">更新学生表中姓名为“张三”的学生的年龄增加一岁</span><br><span class="line"><span class="keyword">UPDATE</span> Student </span><br><span class="line"><span class="keyword">SET</span> Age <span class="operator">=</span> Age <span class="operator">+</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">WHERE</span> Name <span class="operator">=</span> <span class="string">&#x27;张三&#x27;</span>; </span><br></pre></td></tr></table></figure>
-
-
-
-
-				  
-	  
-      
-	  <!-- 添加打赏 -->
-	  
-	
-	  <!-- 添加版权声明 -->
-      
-	  
-	</div>
-	
-	<!-- 添加置顶 -->
-    <div class="article-info article-info-index">
-      
-	  
-	  <!-- 分类页 -->
-      
-      
-
-	  
-	  <!-- 添加展开全文 -->
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
-        </p>
-      
-	  
-	  <!-- 添加分享 -->
-      
-	  
-      <div class="clearfix"></div>
-	  
-    </div>
-  </div>
-</article>
-
-
-
-<!-- 添加回到顶部和文章目录 -->
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-      </div>
-    
-    
-  </div>
-</aside>
-
-<!-- 添加评论 -->
-
-
-<!-- 文章页添加mathjax公式 -->
-
-  
-
-<!-- 文章页添加mathjax公式 -->
-  
-    <article id="post-斐讯K2P" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-	
-    <div class="article-entry" itemprop="articleBody">
-	  <!-- 添加分类与标签 -->
-	  
-		  
-		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>K2P是斐讯在2017年推出的一款路由器，当时因为促销活动也是一机难求，在后续翻车后，又因为其优秀的做工和出色的信号饱受垃圾佬的好评。如今已经是2024年，距离K2P的发布也已经有七年了，在2024年的今天，斐讯K2P还能否胜任日趋复杂的网络环境呢？</p>
-<h2 id="硬件简介"><a href="#硬件简介" class="headerlink" title="硬件简介"></a>硬件简介</h2><p>本次测试使用的版本是K2P A2版本，搭载的是联发科MT7621ASOC，配以128MB DDR3内存和16MB的闪存，一个WAN口和4个LAN口，均为千兆设计。</p>
-<p><img src="/Users/liudinghao/Pictures/vlcsnap-2024-02-24-21h56m18s849.png" alt="vlcsnap-2024-02-24-21h56m18s849"></p>
-<h2 id="刷机教程"><a href="#刷机教程" class="headerlink" title="刷机教程"></a>刷机教程</h2><p>老毛子固件使用简单，操作方便，并且集成了很多常见的功能，基本可以做到开箱即用，是我常用的路由操作系统，下载地址可以到<a target="_blank" rel="noopener" href="https://opt.cn2qq.com/padavan">这里</a>寻找。现在市面上的K2P基本上都已经刷好了不死鸟，如果没有的话自行按照教程刷入不死鸟即可。我们将电脑连接到路由器的LAN口，然后将路由器断电，给其通电并按住复位键五到十秒，到路由器指示灯蓝光闪烁即可，然后在电脑上访问192.168.1.1即可进入breed页面：</p>
-<p><img src="/Users/liudinghao/Pictures/vlcsnap-2024-02-24-22h00m05s297.png" alt="vlcsnap-2024-02-24-22h00m05s297"></p>
-<p>然后就在这个页面选择刚刚下载的固件刷入就可以了。这里布局就选公办就可以。如果之前用的是其它的系统，在刷入之前最好先恢复一下出厂设置。</p>
-<p>然后我们就只需要等待进度条跑完就可以了，进度条跑完之前不要给路由器断电！</p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240224_1708783406.png" alt="vlcsnap-2024-02-24-22h00m16s968"></p>
-<p>进度条完成之后稍等一两分钟，就可以访问192.168.123.1查看老毛子的工作台了。</p>
-<p><img src="/Users/liudinghao/Pictures/vlcsnap-2024-02-24-22h00m33s112.png" alt="vlcsnap-2024-02-24-22h00m33s112"></p>
 
 				  
 	  
@@ -1687,15 +1687,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">math</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">new-yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">math</a>
               </li>
             
             <div class="clearfix"></div>
