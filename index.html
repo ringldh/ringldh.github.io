@@ -1070,6 +1070,101 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
+    <article id="post-安装node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近迁移了服务器，在新服务器上需要重新安装一遍环境。</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>我这里安装的是最新的长期支持版20.11.0。</p>
+<p>首先在<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网</a>查找对应版本的下载链接，我这里是Linux x64，链接是<code>https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</code></p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176192.png" alt="image-20240125174952914"></p>
+<p>安装其实还是比较容易的，我这里参考的是官方的安装指南，只是稍微改动了一下版本号。</p>
+<p>首先是下载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
+
+<p>然后将二进制存档解压到您想要安装 Node 的目录，我使用<code>/usr/local/lib/nodejs</code>。命令如下，如果你和我的情况类似可以直接复制粘贴：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">sudo mkdir -p /usr/local/lib/nodejs</span><br><span class="line">sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs </span><br></pre></td></tr></table></figure>
+
+<p>(这里注意，直接全部复制粘贴的话最后一句可能没有执行，最好单独执行一次解压)</p>
+<p>接下来，我们需要设置环境变量，对于全局安装来说，请使用如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | sudo tee -a /etc/profile</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>对于仅限当前用户安装来说，则可以使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | tee -a $HOME/.profile</span><br><span class="line">source $HOME/.profile</span><br></pre></td></tr></table></figure>
+
+<p>这样就基本完成了，我们可以测试一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm version</span><br><span class="line">$ npx -v</span><br></pre></td></tr></table></figure>
+
+<p>有版本号输出即为成功。我的输出如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176775.png" alt="image-20240125175935188"></p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176745.png" alt="image-20240125175905912"></p>
+<p>现在就可以愉快的使用啦</p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+	
+	  <!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
+      
+
+	  
+	  <!-- 添加展开全文 -->
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
+        </p>
+      
+	  
+	  <!-- 添加分享 -->
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+  </div>
+</aside>
+
+<!-- 添加评论 -->
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
+  
     <article id="post-原本草稿" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1147,101 +1242,6 @@ var _hmt = _hmt || [];
 
 
 
-
-				  
-	  
-      
-	  <!-- 添加打赏 -->
-	  
-	
-	  <!-- 添加版权声明 -->
-      
-	  
-	</div>
-	
-	<!-- 添加置顶 -->
-    <div class="article-info article-info-index">
-      
-	  
-	  <!-- 分类页 -->
-      
-      
-
-	  
-	  <!-- 添加展开全文 -->
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
-        </p>
-      
-	  
-	  <!-- 添加分享 -->
-      
-	  
-      <div class="clearfix"></div>
-	  
-    </div>
-  </div>
-</article>
-
-
-
-<!-- 添加回到顶部和文章目录 -->
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-      </div>
-    
-    
-  </div>
-</aside>
-
-<!-- 添加评论 -->
-
-
-<!-- 文章页添加mathjax公式 -->
-
-  
-
-<!-- 文章页添加mathjax公式 -->
-  
-    <article id="post-安装node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-	
-    <div class="article-entry" itemprop="articleBody">
-	  <!-- 添加分类与标签 -->
-	  
-		  
-		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近迁移了服务器，在新服务器上需要重新安装一遍环境。</p>
-<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>我这里安装的是最新的长期支持版20.11.0。</p>
-<p>首先在<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网</a>查找对应版本的下载链接，我这里是Linux x64，链接是<code>https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</code></p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176192.png" alt="image-20240125174952914"></p>
-<p>安装其实还是比较容易的，我这里参考的是官方的安装指南，只是稍微改动了一下版本号。</p>
-<p>首先是下载：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
-
-<p>然后将二进制存档解压到您想要安装 Node 的目录，我使用<code>/usr/local/lib/nodejs</code>。命令如下，如果你和我的情况类似可以直接复制粘贴：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">sudo mkdir -p /usr/local/lib/nodejs</span><br><span class="line">sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs </span><br></pre></td></tr></table></figure>
-
-<p>(这里注意，直接全部复制粘贴的话最后一句可能没有执行，最好单独执行一次解压)</p>
-<p>接下来，我们需要设置环境变量，对于全局安装来说，请使用如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | sudo tee -a /etc/profile</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-
-<p>对于仅限当前用户安装来说，则可以使用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | tee -a $HOME/.profile</span><br><span class="line">source $HOME/.profile</span><br></pre></td></tr></table></figure>
-
-<p>这样就基本完成了，我们可以测试一下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm version</span><br><span class="line">$ npx -v</span><br></pre></td></tr></table></figure>
-
-<p>有版本号输出即为成功。我的输出如下所示：</p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176775.png" alt="image-20240125175935188"></p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176745.png" alt="image-20240125175905912"></p>
-<p>现在就可以愉快的使用啦</p>
 
 				  
 	  
