@@ -10,19 +10,17 @@
   <title>Chen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="description" content="服务器管理系统开发手记前言这两天根据葛老师的需求开发了一个服务器信息管理系统，用来登记服务器信息。说是管理系统，其实就和一个专用的在线表格差不多。这里记录一些开发过程中的要点。 需求总结：设置保存在config.ini中，包括flask程序的debug，port，host，以及超级管理员密码和可信IP。 需要记录服务器ID，服务器IPV4地址，服务器IPV6地址，服务器账号，服务器密码，使用端口，">
+  <meta name="description" content="-– title: nginx配置更改 tag:   - null categories:   - null article_type: 0 no_word_count: false no_toc: false no_date: false no_declare: false no_reward: false no_comments: false no_share: false no_footer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Chen">
 <meta property="og:url" content="https://ringldh.github.io/post/0.html">
 <meta property="og:site_name" content="Chen">
-<meta property="og:description" content="服务器管理系统开发手记前言这两天根据葛老师的需求开发了一个服务器信息管理系统，用来登记服务器信息。说是管理系统，其实就和一个专用的在线表格差不多。这里记录一些开发过程中的要点。 需求总结：设置保存在config.ini中，包括flask程序的debug，port，host，以及超级管理员密码和可信IP。 需要记录服务器ID，服务器IPV4地址，服务器IPV6地址，服务器账号，服务器密码，使用端口，">
+<meta property="og:description" content="-– title: nginx配置更改 tag:   - null categories:   - null article_type: 0 no_word_count: false no_toc: false no_date: false no_declare: false no_reward: false no_comments: false no_share: false no_footer">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240112_1705028851.png">
 <meta property="article:published_time" content="2024-03-04T02:58:40.863Z">
-<meta property="article:modified_time" content="2024-03-05T10:36:59.019Z">
+<meta property="article:modified_time" content="2024-03-04T02:58:40.863Z">
 <meta property="article:author" content="Chen">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240112_1705028851.png">
   
   
     <link rel="alternative" href="/atom.xml" title="Chen" type="application/atom+xml">
@@ -312,7 +310,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-服务器管理系统开发手记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-nginx配置更改" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
 	
@@ -320,55 +318,39 @@ var _hmt = _hmt || [];
 	  <!-- 添加分类与标签 -->
 	  
 		  
-		  <h1 id="服务器管理系统开发手记"><a href="#服务器管理系统开发手记" class="headerlink" title="服务器管理系统开发手记"></a>服务器管理系统开发手记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这两天根据葛老师的需求开发了一个服务器信息管理系统，用来登记服务器信息。说是管理系统，其实就和一个专用的在线表格差不多。这里记录一些开发过程中的要点。</p>
-<h2 id="需求总结："><a href="#需求总结：" class="headerlink" title="需求总结："></a>需求总结：</h2><p>设置保存在config.ini中，包括flask程序的debug，port，host，以及超级管理员密码和可信IP。</p>
-<p>需要记录服务器ID，服务器IPV4地址，服务器IPV6地址，服务器账号，服务器密码，使用端口，是否有数据库，数据库类型，后面新需求又加入了操作系统，所属部门，用处，并作出相应的查询，且可以导出excel。</p>
-<p>需要做一定的安全措施对密码进行限制，以防止可能出现的信息泄露问题。</p>
-<h2 id="初步设计"><a href="#初步设计" class="headerlink" title="初步设计"></a>初步设计</h2><p>应用主页左侧是新增记录区，用户需要依次填写以上列的值，其中IPV6地址和数据库类型可以为空，是否有数据库和操作系统类型是下拉框，且是否有数据库选否不会出现数据库类型框。用户填写完成确认后将新数据添加到csv中。<br>右侧是数据搜索窗口，用户可以根据条件进行查询，例如通过端口号搜寻，通过数据库类型搜寻等，或者留空查询全部数据。搜寻出来的结果会在一个新页面中以表格样式显示，但是不显示密码。</p>
-<p>主页右下方有一个显示全部数据按钮，点击进去会需要输入超级管理员密码。只有可信ip下，输入正确密码时，才会显示包含密码的全部信息，否则显示对应的提示信息。</p>
-<h2 id="数据存储："><a href="#数据存储：" class="headerlink" title="数据存储："></a>数据存储：</h2><p>是的没错，数据存储在csv中。原因是数据量太少了，只有两百多条。</p>
-<p>数据在csv中明文保存，密码是加密的。</p>
-<p>加密使用的是Fernet加密，本质是AES。密码由密码生成器生成，同样保存在config.ini中。</p>
-<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p>其实没什么设计。选用flask框架进行开发，大致结构如下：</p>
-<p>serverimf</p>
-<p>|– __init__.py</p>
-<p>|– app.py</p>
-<p>|– config.ini</p>
-<p>|– data_manager.py</p>
-<p>|– 密码生成.py</p>
-<p>|– static&#x2F;</p>
-<p>|   |– css&#x2F;</p>
-<p>|   |   |– bootstrap.css</p>
-<p>|   |– js&#x2F;</p>
-<p>|   |   |– bootstrap.js</p>
-<p>|   |   |– jquery.js</p>
-<p>|   |   |– popper.js</p>
-<p>|   |– data&#x2F;</p>
-<p>|   |   |– data.csv</p>
-<p>|– templates&#x2F;</p>
-<p>|   |– index.html</p>
-<p>|   |– password_prompt.html</p>
-<p>|   |– search_results.html</p>
-<p>|   |– view_all.html</p>
-<p>各部分作用如下：</p>
-<p>app.py：flask主程序</p>
-<p>config.py：存储配置文件</p>
-<p>data_manager.py：数据处理工具函数</p>
-<p>密码生成.py：用于生成符合要求的密码</p>
-<p>static:存放各种静态资源文件</p>
-<p>css：存放样式文件</p>
-<p>js：存放js脚本</p>
-<p>data：存放数据文件，其中data.csv是数据存储，用户在生成excel时也会存放在这里</p>
-<p>templates：存放网页文件</p>
-<p>index.html：程序主页</p>
-<p>password_prompt.html：输入密码提示页面，用于超级管理员权限验证</p>
-<p>search_results.html：服务器信息页面，用于用户检索服务器后显示符合要求的服务器</p>
-<p>view_all.html：超级管理员查看全部服务器信息，包含密码，同时也提供导出excel功能</p>
-<h2 id="界面预览"><a href="#界面预览" class="headerlink" title="界面预览"></a>界面预览</h2><p>主界面：</p>
-<p>![截屏2024-01-12 11.00.10](&#x2F;Users&#x2F;liudinghao&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2024-01-12 11.00.10.png)</p>
-<p>搜索结果页：</p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240112_1705028851.png" alt="image-20240112110731417"></p>
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>先写到这里吧。程序会在脱敏后开源到Github。</p>
+		  <p>-–</p>
+<p>title: nginx配置更改</p>
+<p>tag:</p>
+<p>  - null</p>
+<p>categories:</p>
+<p>  - null</p>
+<p>article_type: 0</p>
+<p>no_word_count: false</p>
+<p>no_toc: false</p>
+<p>no_date: false</p>
+<p>no_declare: false</p>
+<p>no_reward: false</p>
+<p>no_comments: false</p>
+<p>no_share: false</p>
+<p>no_footer: false</p>
+<p>mathjax: false</p>
+<p>date: 2024-01-24 09:50:43</p>
+<p>top:</p>
+<p>-–</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我的云服务器配置比较低，只有2C4G，部署不了太多应用，因此我只在上面部署了一些简单应用，大多数应用还是部署在我自己家里的电脑上，然后在外网使用需求的就暴露出来公网ip，通过云服务器进行重定向。</p>
+<h3 id="nginx设置"><a href="#nginx设置" class="headerlink" title="nginx设置"></a>nginx设置</h3><p>我家里的是联通宽带，有公网ip，上行也有150M左右，还是比较充裕的。因此我在家里的服务器上部署了很多工具，有需要的就在路由器上进行端口转发到公网。在云服务器上，我配置了nginx，将对应的二级域名转发到我家里的ip。为了便于管理，我的nginx配置文件存放在<code>/etc/nginx/sites-available</code>,每次需要新增网站时，我都是在这个目录下新建一个文件（这里假设我的域名是exmple.com，新建的网站为xyz.exmple.com,家里ip为1.1.1.1，服务端口为8888）。</p>
+<p>sudo nano &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;xyz.exmple.com</p>
+<p>文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name xyz.exmple.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://1.1.1.1:8888;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后保存。使用链接将内容链接到&#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;:</p>
+<p>sudo ln -s &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;yjy.chenandu.top &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;</p>
+<p>最后重载配置即可：</p>
+<p>sudo nginx -s reload</p>
+<h3 id="新的问题"><a href="#新的问题" class="headerlink" title="新的问题"></a>新的问题</h3><p>本来以为这么设置后就已经万事大吉了，但是前段时间我的公网ip突然变了，所有网站都没法用了，一个一个改的话要累死我，于是就又写了一个bash脚本，用来批量更改nginx的配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 设置旧的 IP 地址和新的 IP 地址</span><br><span class="line">OLD_IP=&quot;1.1.1.1&quot;</span><br><span class="line">NEW_IP=&quot;2.2.2.2&quot;</span><br><span class="line"></span><br><span class="line"># 指定要搜索的目录</span><br><span class="line">DIRECTORY=&quot;/etc/nginx/sites-available&quot;</span><br><span class="line"></span><br><span class="line"># 遍历目录中的所有文件</span><br><span class="line">for file in $DIRECTORY/*</span><br><span class="line">do</span><br><span class="line">  # 检查文件是否包含旧的 IP 地址</span><br><span class="line">  if grep -q $OLD_IP $file; then</span><br><span class="line">    # 使用 sed 命令替换 IP 地址</span><br><span class="line">    sed -i &quot;s/$OLD_IP/$NEW_IP/g&quot; $file</span><br><span class="line">    echo &quot;Updated IP address in $file&quot;</span><br><span class="line">  fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># 重载 Nginx 配置</span><br><span class="line">sudo nginx -s reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用到现在，还没有遇到什么问题，有需求的朋友们可以参考。</p>
 
 				  
 	  
@@ -418,7 +400,7 @@ var _hmt = _hmt || [];
 	
 	<br>
 	<strong class="update-time">最后更新：</strong>
-	2024年03月05日 18:36:59
+	2024年03月04日 10:58:40
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
@@ -517,18 +499,18 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/post/0.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/post/a927044d.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          math
         
       </div>
     </a>
   
   
-    <a href="/post/c1b57b12.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Gitea安装笔记</div>
+    <a href="/post/fec20fe6.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">服务器管理系统开发手记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -554,7 +536,7 @@ var _hmt = _hmt || [];
           <span class="tooltip-content">
 			<span style="font-size: 20px;font-weight: bold;">目录</span>
             <div class="toc-article">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E6%89%8B%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">服务器管理系统开发手记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">需求总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.</span> <span class="toc-text">初步设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">数据存储：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.5.</span> <span class="toc-text">架构设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2%E9%A2%84%E8%A7%88"><span class="toc-number">1.6.</span> <span class="toc-text">界面预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li></ol></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">nginx设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">新的问题</span></a></li></ol>
             </div>
           </span>
         </div>
@@ -873,6 +855,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
