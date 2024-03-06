@@ -116,30 +116,6 @@
   </entry>
   
   <entry>
-    <title>MySQL</title>
-    <link href="https://ringldh.github.io/post/62a004b9.html"/>
-    <id>https://ringldh.github.io/post/62a004b9.html</id>
-    <published>2024-03-04T09:03:00.534Z</published>
-    <updated>2024-03-06T06:54:58.806Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="ubuntu安装mysql："><a href="#ubuntu安装mysql：" class="headerlink" title="ubuntu安装mysql："></a>ubuntu安装mysql：</h1><h3 id="直接使用apt方式即可："><a href="#直接使用apt方式即可：" class="headerlink" title="直接使用apt方式即可："></a>直接使用apt方式即可：</h3><p><code>sudo apt install mysql-server</code></p><p>安装完成之后就已经开始运行mysql了，同时也自动配置好了开机启动。</p><h3 id="服务管理："><a href="#服务管理：" class="headerlink" title="服务管理："></a>服务管理：</h3><p><code>sudo service mysql status/start/stop/restart</code></p><h3 id="第一次安装后的一些配置："><a href="#第一次安装后的一些配置：" class="headerlink" title="第一次安装后的一些配置："></a>第一次安装后的一些配置：</h3><p>首先就是要修改root账户的密码。在此之前，需要先登录。</p><span id="more"></span><h4 id="登录："><a href="#登录：" class="headerlink" title="登录："></a>登录：</h4><p>可以使用默认账户登录或者直接进入mysql</p><h5 id="使用默认账户登录"><a href="#使用默认账户登录" class="headerlink" title="使用默认账户登录"></a>使用默认账户登录</h5><p>使用以下命令查看默认密码：</p><p><code>sudo cat /etc/mysql/debian.cnf</code></p><h5 id="直接进入mysql"><a href="#直接进入mysql" class="headerlink" title="直接进入mysql"></a>直接进入mysql</h5><p><code>sudo mysql</code></p><h4 id="查看用户信息："><a href="#查看用户信息：" class="headerlink" title="查看用户信息："></a>查看用户信息：</h4><p><code>use mysql</code></p><p><code>select host,user from user;</code></p><h4 id="修改密码："><a href="#修改密码：" class="headerlink" title="修改密码："></a>修改密码：</h4><p><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;</code></p><p>这里的123456就是你的新密码</p><p>修改完成之后记得刷新一下：</p><p><code>FLUSH PRIVILEGES;</code></p><h4 id="允许root用户远程登录"><a href="#允许root用户远程登录" class="headerlink" title="允许root用户远程登录"></a>允许root用户远程登录</h4><p>允许root用户远程连接：</p><p><code>create user &#39;root&#39;@&#39;%&#39; identified by &#39;123456&#39;;</code></p><p>授予权限：</p><p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION;</code></p><p>刷新权限：</p><p><code>FLUSH PRIVILEGES;</code></p><p>这样子就完成了权限设置，但是还没结束。mysql默认的配置文件禁止了远程登录,如果要远程连接，需要去设置一下。</p><p>首先关闭mysql服务：</p><p><code>sudo systemctl stop mysql</code></p><p>编辑mysql配置文件。我这里使用的编辑器是nano。你也可以换成你喜欢的编辑器，比如vim：</p><p><code>sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></p><p>注释或者删除掉</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind-address           = 127.0.0.1</span><br></pre></td></tr></table></figure><p>重新开启mysql服务：</p><p><code>sudo service mysql start</code></p><p>现在基本就配置完成了。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;ubuntu安装mysql：&quot;&gt;&lt;a href=&quot;#ubuntu安装mysql：&quot; class=&quot;headerlink&quot; title=&quot;ubuntu安装mysql：&quot;&gt;&lt;/a&gt;ubuntu安装mysql：&lt;/h1&gt;&lt;h3 id=&quot;直接使用apt方式即可：&quot;&gt;&lt;a href=&quot;#直接使用apt方式即可：&quot; class=&quot;headerlink&quot; title=&quot;直接使用apt方式即可：&quot;&gt;&lt;/a&gt;直接使用apt方式即可：&lt;/h3&gt;&lt;p&gt;&lt;code&gt;sudo apt install mysql-server&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;安装完成之后就已经开始运行mysql了，同时也自动配置好了开机启动。&lt;/p&gt;
-&lt;h3 id=&quot;服务管理：&quot;&gt;&lt;a href=&quot;#服务管理：&quot; class=&quot;headerlink&quot; title=&quot;服务管理：&quot;&gt;&lt;/a&gt;服务管理：&lt;/h3&gt;&lt;p&gt;&lt;code&gt;sudo service mysql status/start/stop/restart&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&quot;第一次安装后的一些配置：&quot;&gt;&lt;a href=&quot;#第一次安装后的一些配置：&quot; class=&quot;headerlink&quot; title=&quot;第一次安装后的一些配置：&quot;&gt;&lt;/a&gt;第一次安装后的一些配置：&lt;/h3&gt;&lt;p&gt;首先就是要修改root账户的密码。在此之前，需要先登录。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="杂物堆" scheme="https://ringldh.github.io/categories/%E6%9D%82%E7%89%A9%E5%A0%86/"/>
-    
-    
-    <category term="杂谈" scheme="https://ringldh.github.io/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
     <title>README</title>
     <link href="https://ringldh.github.io/post/c47c7c73.html"/>
     <id>https://ringldh.github.io/post/c47c7c73.html</id>
@@ -153,6 +129,30 @@
       
     <summary type="html">&lt;h2 id=&quot;看啥看，一边玩去&quot;&gt;&lt;a href=&quot;#看啥看，一边玩去&quot; class=&quot;headerlink&quot; title=&quot;看啥看，一边玩去&quot;&gt;&lt;/a&gt;看啥看，一边玩去&lt;/h2&gt;</summary>
       
+    
+    
+    
+    <category term="杂物堆" scheme="https://ringldh.github.io/categories/%E6%9D%82%E7%89%A9%E5%A0%86/"/>
+    
+    
+    <category term="杂谈" scheme="https://ringldh.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL</title>
+    <link href="https://ringldh.github.io/post/62a004b9.html"/>
+    <id>https://ringldh.github.io/post/62a004b9.html</id>
+    <published>2024-03-04T09:03:00.534Z</published>
+    <updated>2024-03-06T06:54:58.806Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ubuntu安装mysql："><a href="#ubuntu安装mysql：" class="headerlink" title="ubuntu安装mysql："></a>ubuntu安装mysql：</h1><h3 id="直接使用apt方式即可："><a href="#直接使用apt方式即可：" class="headerlink" title="直接使用apt方式即可："></a>直接使用apt方式即可：</h3><p><code>sudo apt install mysql-server</code></p><p>安装完成之后就已经开始运行mysql了，同时也自动配置好了开机启动。</p><h3 id="服务管理："><a href="#服务管理：" class="headerlink" title="服务管理："></a>服务管理：</h3><p><code>sudo service mysql status/start/stop/restart</code></p><h3 id="第一次安装后的一些配置："><a href="#第一次安装后的一些配置：" class="headerlink" title="第一次安装后的一些配置："></a>第一次安装后的一些配置：</h3><p>首先就是要修改root账户的密码。在此之前，需要先登录。</p><span id="more"></span><h4 id="登录："><a href="#登录：" class="headerlink" title="登录："></a>登录：</h4><p>可以使用默认账户登录或者直接进入mysql</p><h5 id="使用默认账户登录"><a href="#使用默认账户登录" class="headerlink" title="使用默认账户登录"></a>使用默认账户登录</h5><p>使用以下命令查看默认密码：</p><p><code>sudo cat /etc/mysql/debian.cnf</code></p><h5 id="直接进入mysql"><a href="#直接进入mysql" class="headerlink" title="直接进入mysql"></a>直接进入mysql</h5><p><code>sudo mysql</code></p><h4 id="查看用户信息："><a href="#查看用户信息：" class="headerlink" title="查看用户信息："></a>查看用户信息：</h4><p><code>use mysql</code></p><p><code>select host,user from user;</code></p><h4 id="修改密码："><a href="#修改密码：" class="headerlink" title="修改密码："></a>修改密码：</h4><p><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;</code></p><p>这里的123456就是你的新密码</p><p>修改完成之后记得刷新一下：</p><p><code>FLUSH PRIVILEGES;</code></p><h4 id="允许root用户远程登录"><a href="#允许root用户远程登录" class="headerlink" title="允许root用户远程登录"></a>允许root用户远程登录</h4><p>允许root用户远程连接：</p><p><code>create user &#39;root&#39;@&#39;%&#39; identified by &#39;123456&#39;;</code></p><p>授予权限：</p><p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION;</code></p><p>刷新权限：</p><p><code>FLUSH PRIVILEGES;</code></p><p>这样子就完成了权限设置，但是还没结束。mysql默认的配置文件禁止了远程登录,如果要远程连接，需要去设置一下。</p><p>首先关闭mysql服务：</p><p><code>sudo systemctl stop mysql</code></p><p>编辑mysql配置文件。我这里使用的编辑器是nano。你也可以换成你喜欢的编辑器，比如vim：</p><p><code>sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></p><p>注释或者删除掉</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind-address           = 127.0.0.1</span><br></pre></td></tr></table></figure><p>重新开启mysql服务：</p><p><code>sudo service mysql start</code></p><p>现在基本就配置完成了。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;ubuntu安装mysql：&quot;&gt;&lt;a href=&quot;#ubuntu安装mysql：&quot; class=&quot;headerlink&quot; title=&quot;ubuntu安装mysql：&quot;&gt;&lt;/a&gt;ubuntu安装mysql：&lt;/h1&gt;&lt;h3 id=&quot;直接使用apt方式即可：&quot;&gt;&lt;a href=&quot;#直接使用apt方式即可：&quot; class=&quot;headerlink&quot; title=&quot;直接使用apt方式即可：&quot;&gt;&lt;/a&gt;直接使用apt方式即可：&lt;/h3&gt;&lt;p&gt;&lt;code&gt;sudo apt install mysql-server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;安装完成之后就已经开始运行mysql了，同时也自动配置好了开机启动。&lt;/p&gt;
+&lt;h3 id=&quot;服务管理：&quot;&gt;&lt;a href=&quot;#服务管理：&quot; class=&quot;headerlink&quot; title=&quot;服务管理：&quot;&gt;&lt;/a&gt;服务管理：&lt;/h3&gt;&lt;p&gt;&lt;code&gt;sudo service mysql status/start/stop/restart&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;第一次安装后的一些配置：&quot;&gt;&lt;a href=&quot;#第一次安装后的一些配置：&quot; class=&quot;headerlink&quot; title=&quot;第一次安装后的一些配置：&quot;&gt;&lt;/a&gt;第一次安装后的一些配置：&lt;/h3&gt;&lt;p&gt;首先就是要修改root账户的密码。在此之前，需要先登录。&lt;/p&gt;</summary>
     
     
     
