@@ -47,15 +47,6 @@
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/post/ca3753a5.html</loc>
-    
-    <lastmod>2024-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ringldh.github.io/post/e7f8cbd8.html</loc>
     
     <lastmod>2024-03-06</lastmod>
@@ -119,6 +110,15 @@
   </url>
   
   <url>
+    <loc>https://ringldh.github.io/post/ca3753a5.html</loc>
+    
+    <lastmod>2024-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ringldh.github.io/post/0.html</loc>
     
     <lastmod>2024-03-04</lastmod>
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/photos/index.html</loc>
+    <loc>https://ringldh.github.io/photos/data.json</loc>
     
     <lastmod>2024-03-04</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/photos/data.json</loc>
+    <loc>https://ringldh.github.io/photos/index.html</loc>
     
     <lastmod>2024-03-04</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/post/0.html</loc>
+    <loc>https://ringldh.github.io/post/a927044d.html</loc>
     
     <lastmod>2024-03-04</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/post/a927044d.html</loc>
+    <loc>https://ringldh.github.io/post/0.html</loc>
     
     <lastmod>2024-03-04</lastmod>
     
@@ -271,14 +271,14 @@
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/categories/%E5%8D%9A%E5%AE%A2Blog/hexo/</loc>
+    <loc>https://ringldh.github.io/categories/math/</loc>
     <lastmod>2024-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ringldh.github.io/categories/math/</loc>
+    <loc>https://ringldh.github.io/categories/%E5%8D%9A%E5%AE%A2Blog/hexo/</loc>
     <lastmod>2024-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
