@@ -172,30 +172,6 @@
   </entry>
   
   <entry>
-    <title>使用ssh密钥时的一些错误</title>
-    <link href="https://ringldh.github.io/post/cb25650a.html"/>
-    <id>https://ringldh.github.io/post/cb25650a.html</id>
-    <published>2024-03-04T09:03:00.534Z</published>
-    <updated>2024-03-06T06:59:39.957Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行<code>ssh-add  密钥文件地址</code>，例如<code>ssh-add ~/.ssh/github</code>就可以了，但是在我这台新服务器上会报错：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not open a connection to your authentication agent.</span><br></pre></td></tr></table></figure><p>这个保存的原因是服务器还没有启动ssh agent。输入<code>eval $(ssh-agent -s)</code>启动一下就好了。</p><span id="more"></span><p>但是我在启动之后仍然不行，这次报错换了：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0664 for &#x27;我的密钥&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这次的原因是私钥文件的权限为644，其他用户也可以访问到，不安全，要求设置为让其他用户无法访问的权限级别。这里直接使用chmod赋权即可：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 密钥路径</span><br></pre></td></tr></table></figure><p>如此一来就完成啦！</p><p>还可以更进一步，在shell中配置默认加载，在<code>~/.profile</code> 文件中添加：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Start ssh-agent</span><br><span class="line">eval &quot;$(ssh-agent -s)&quot;</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure><p>然后就可以了。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行&lt;code&gt;ssh-add  密钥文件地址&lt;/code&gt;，例如&lt;code&gt;ssh-add ~/.ssh/github&lt;/code&gt;就可以了，但是在我这台新服务器上会报错：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Could not open a connection to your authentication agent.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;这个保存的原因是服务器还没有启动ssh agent。输入&lt;code&gt;eval $(ssh-agent -s)&lt;/code&gt;启动一下就好了。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="杂物堆" scheme="https://ringldh.github.io/categories/%E6%9D%82%E7%89%A9%E5%A0%86/"/>
-    
-    
-    <category term="杂谈" scheme="https://ringldh.github.io/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
     <title>tab</title>
     <link href="https://ringldh.github.io/post/e7f8cbd8.html"/>
     <id>https://ringldh.github.io/post/e7f8cbd8.html</id>
@@ -216,6 +192,30 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="杂物堆" scheme="https://ringldh.github.io/categories/%E6%9D%82%E7%89%A9%E5%A0%86/"/>
+    
+    
+    <category term="杂谈" scheme="https://ringldh.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用ssh密钥时的一些错误</title>
+    <link href="https://ringldh.github.io/post/cb25650a.html"/>
+    <id>https://ringldh.github.io/post/cb25650a.html</id>
+    <published>2024-03-04T09:03:00.534Z</published>
+    <updated>2024-03-06T06:59:39.957Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行<code>ssh-add  密钥文件地址</code>，例如<code>ssh-add ~/.ssh/github</code>就可以了，但是在我这台新服务器上会报错：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not open a connection to your authentication agent.</span><br></pre></td></tr></table></figure><p>这个保存的原因是服务器还没有启动ssh agent。输入<code>eval $(ssh-agent -s)</code>启动一下就好了。</p><span id="more"></span><p>但是我在启动之后仍然不行，这次报错换了：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0664 for &#x27;我的密钥&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这次的原因是私钥文件的权限为644，其他用户也可以访问到，不安全，要求设置为让其他用户无法访问的权限级别。这里直接使用chmod赋权即可：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 密钥路径</span><br></pre></td></tr></table></figure><p>如此一来就完成啦！</p><p>还可以更进一步，在shell中配置默认加载，在<code>~/.profile</code> 文件中添加：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Start ssh-agent</span><br><span class="line">eval &quot;$(ssh-agent -s)&quot;</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure><p>然后就可以了。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行&lt;code&gt;ssh-add  密钥文件地址&lt;/code&gt;，例如&lt;code&gt;ssh-add ~/.ssh/github&lt;/code&gt;就可以了，但是在我这台新服务器上会报错：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Could not open a connection to your authentication agent.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;这个保存的原因是服务器还没有启动ssh agent。输入&lt;code&gt;eval $(ssh-agent -s)&lt;/code&gt;启动一下就好了。&lt;/p&gt;</summary>
     
     
     
@@ -279,6 +279,29 @@
   </entry>
   
   <entry>
+    <title>安装node</title>
+    <link href="https://ringldh.github.io/post/7439f9a8.html"/>
+    <id>https://ringldh.github.io/post/7439f9a8.html</id>
+    <published>2024-03-04T09:03:00.534Z</published>
+    <updated>2024-03-06T06:59:39.957Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近迁移了服务器，在新服务器上需要重新安装一遍环境。</p><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>我这里安装的是最新的长期支持版20.11.0。</p><p>首先在<a href="https://nodejs.org/en/download/">官网</a>查找对应版本的下载链接，我这里是Linux x64，链接是<code>https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</code></p><span id="more"></span><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176192.png" alt="image-20240125174952914"></p><p>安装其实还是比较容易的，我这里参考的是官方的安装指南，只是稍微改动了一下版本号。</p><p>首先是下载：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure><p>然后将二进制存档解压到您想要安装 Node 的目录，我使用<code>/usr/local/lib/nodejs</code>。命令如下，如果你和我的情况类似可以直接复制粘贴：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">sudo mkdir -p /usr/local/lib/nodejs</span><br><span class="line">sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs </span><br></pre></td></tr></table></figure><p>(这里注意，直接全部复制粘贴的话最后一句可能没有执行，最好单独执行一次解压)</p><p>接下来，我们需要设置环境变量，对于全局安装来说，请使用如下命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | sudo tee -a /etc/profile</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure><p>对于仅限当前用户安装来说，则可以使用：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | tee -a $HOME/.profile</span><br><span class="line">source $HOME/.profile</span><br></pre></td></tr></table></figure><p>这样就基本完成了，我们可以测试一下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm version</span><br><span class="line">$ npx -v</span><br></pre></td></tr></table></figure><p>有版本号输出即为成功。我的输出如下所示：</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176775.png" alt="image-20240125175935188"></p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176745.png" alt="image-20240125175905912"></p><p>现在就可以愉快的使用啦</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近迁移了服务器，在新服务器上需要重新安装一遍环境。&lt;/p&gt;
+&lt;h3 id=&quot;Node&quot;&gt;&lt;a href=&quot;#Node&quot; class=&quot;headerlink&quot; title=&quot;Node&quot;&gt;&lt;/a&gt;Node&lt;/h3&gt;&lt;p&gt;我这里安装的是最新的长期支持版20.11.0。&lt;/p&gt;
+&lt;p&gt;首先在&lt;a href=&quot;https://nodejs.org/en/download/&quot;&gt;官网&lt;/a&gt;查找对应版本的下载链接，我这里是Linux x64，链接是&lt;code&gt;https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz&lt;/code&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="杂物堆" scheme="https://ringldh.github.io/categories/%E6%9D%82%E7%89%A9%E5%A0%86/"/>
+    
+    
+    <category term="杂谈" scheme="https://ringldh.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>斐讯K2P</title>
     <link href="https://ringldh.github.io/post/1c21547b.html"/>
     <id>https://ringldh.github.io/post/1c21547b.html</id>
@@ -301,25 +324,22 @@
   </entry>
   
   <entry>
-    <title>安装node</title>
-    <link href="https://ringldh.github.io/post/7439f9a8.html"/>
-    <id>https://ringldh.github.io/post/7439f9a8.html</id>
-    <published>2024-03-04T09:03:00.534Z</published>
-    <updated>2024-03-06T06:59:39.957Z</updated>
+    <title></title>
+    <link href="https://ringldh.github.io/post/0.html"/>
+    <id>https://ringldh.github.io/post/0.html</id>
+    <published>2024-03-04T02:58:40.863Z</published>
+    <updated>2024-03-04T09:05:22.860Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近迁移了服务器，在新服务器上需要重新安装一遍环境。</p><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>我这里安装的是最新的长期支持版20.11.0。</p><p>首先在<a href="https://nodejs.org/en/download/">官网</a>查找对应版本的下载链接，我这里是Linux x64，链接是<code>https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</code></p><span id="more"></span><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176192.png" alt="image-20240125174952914"></p><p>安装其实还是比较容易的，我这里参考的是官方的安装指南，只是稍微改动了一下版本号。</p><p>首先是下载：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure><p>然后将二进制存档解压到您想要安装 Node 的目录，我使用<code>/usr/local/lib/nodejs</code>。命令如下，如果你和我的情况类似可以直接复制粘贴：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">sudo mkdir -p /usr/local/lib/nodejs</span><br><span class="line">sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs </span><br></pre></td></tr></table></figure><p>(这里注意，直接全部复制粘贴的话最后一句可能没有执行，最好单独执行一次解压)</p><p>接下来，我们需要设置环境变量，对于全局安装来说，请使用如下命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | sudo tee -a /etc/profile</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure><p>对于仅限当前用户安装来说，则可以使用：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION=v20.11.0</span><br><span class="line">DISTRO=linux-x64</span><br><span class="line">echo &#x27;export PATH=$PATH:/usr/local/lib/nodejs/node-&#x27;$VERSION&#x27;-&#x27;$DISTRO&#x27;/bin&#x27; | tee -a $HOME/.profile</span><br><span class="line">source $HOME/.profile</span><br></pre></td></tr></table></figure><p>这样就基本完成了，我们可以测试一下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm version</span><br><span class="line">$ npx -v</span><br></pre></td></tr></table></figure><p>有版本号输出即为成功。我的输出如下所示：</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176775.png" alt="image-20240125175935188"></p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/01/upgit_20240125_1706176745.png" alt="image-20240125175905912"></p><p>现在就可以愉快的使用啦</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近迁移了服务器，在新服务器上需要重新安装一遍环境。&lt;/p&gt;
-&lt;h3 id=&quot;Node&quot;&gt;&lt;a href=&quot;#Node&quot; class=&quot;headerlink&quot; title=&quot;Node&quot;&gt;&lt;/a&gt;Node&lt;/h3&gt;&lt;p&gt;我这里安装的是最新的长期支持版20.11.0。&lt;/p&gt;
-&lt;p&gt;首先在&lt;a href=&quot;https://nodejs.org/en/download/&quot;&gt;官网&lt;/a&gt;查找对应版本的下载链接，我这里是Linux x64，链接是&lt;code&gt;https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.xz&lt;/code&gt;&lt;/p&gt;</summary>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>OpenSpeedTest是一个比较好用的开源网速测试工具，虽然国内外也有很多免费的测速网站，但是它支持自建测速服务器，可以用来方便的测试我本地到我的云服务器之间的速度。恰巧我今天给之前的VPS装了一些新服务，除了内存爆满感叹一下Java真的太吃内存了之外，又心血来潮想测试一下云服务器到我这里的速度。</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708590766.png" alt="image-20240222163246918"></p><p>那么我最开始是不想使用Docker的，<del>因为我忘记了这台机子上装的有docker</del>因为我喜欢自己动手的感觉，更重要的是这个VPS只剩下40多M的可用内存了，再开一个Docker撑不撑得住我心里也没底。</p><p>于是我就向下翻看到了一个”OpenSpeedTest-Server for Desktop and Mobile”，就是我之前在Windows上用的服务端，我就果断复制链接Wget，然后就报错了，网站做了防盗链处理。没关系，我于是又自己手动下载下来挪到服务器上，然后狠狠地使用<code>apt install ./OpenSpeedTest</code>安装它。</p><p>安装之后运行<code>openspeedtest-server</code>但是有报错，提示缺少这个那个，看起来都是一些图像相关的东西。到这里我已经感觉有点不妙了，但是我还是充分发挥了我的主观能动性，逢山开路遇水搭桥，缺啥apt install啥，终于~~~ 它寄了…</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591349.png" alt="image-20240222164229716"></p><p>再别说了，直接无情卸载，然后我就准备去找源代码安装，就在这时，我鬼使神差的看到了top里有一个dockerxxx进程…</p><p>好嘛！直接docker ps -a查看，还有几个容器正在跑着呢，你说这我费啥劲，于是直接开始了没羞没臊的Docker生活：</p><p><code>docker run --restart=unless-stopped --name openspeedtest -d -p 3000:3000 -p 3001:3001 openspeedtest/latest</code></p><p>安装完成后直接进行一个速的测：</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591504.png" alt="image-20240222164503986"></p><p>这个速度测试结果我还是比较满意的，就是不知道为什么，最近几次测速我的上行都是比下行高一点。</p><p>另外就是问一下大家，有没有什么全端通用的ipv6测速工具&#x2F;网站，最好是可以自行部署的。</p>]]></content>
     
     
+      
+      
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;OpenSpeedTest是一个比较好用的开源网速测试工具，虽然国内外也有很多免费的测速网站，但是它支持自建测速服务器，可以用来方便的测试我</summary>
+      
     
-    <category term="杂物堆" scheme="https://ringldh.github.io/categories/%E6%9D%82%E7%89%A9%E5%A0%86/"/>
     
     
-    <category term="杂谈" scheme="https://ringldh.github.io/tags/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
@@ -347,26 +367,6 @@
     <category term="hexo" scheme="https://ringldh.github.io/tags/hexo/"/>
     
     <category term="new-yilia" scheme="https://ringldh.github.io/tags/new-yilia/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://ringldh.github.io/post/0.html"/>
-    <id>https://ringldh.github.io/post/0.html</id>
-    <published>2024-03-04T02:58:40.863Z</published>
-    <updated>2024-03-04T09:05:22.860Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>OpenSpeedTest是一个比较好用的开源网速测试工具，虽然国内外也有很多免费的测速网站，但是它支持自建测速服务器，可以用来方便的测试我本地到我的云服务器之间的速度。恰巧我今天给之前的VPS装了一些新服务，除了内存爆满感叹一下Java真的太吃内存了之外，又心血来潮想测试一下云服务器到我这里的速度。</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708590766.png" alt="image-20240222163246918"></p><p>那么我最开始是不想使用Docker的，<del>因为我忘记了这台机子上装的有docker</del>因为我喜欢自己动手的感觉，更重要的是这个VPS只剩下40多M的可用内存了，再开一个Docker撑不撑得住我心里也没底。</p><p>于是我就向下翻看到了一个”OpenSpeedTest-Server for Desktop and Mobile”，就是我之前在Windows上用的服务端，我就果断复制链接Wget，然后就报错了，网站做了防盗链处理。没关系，我于是又自己手动下载下来挪到服务器上，然后狠狠地使用<code>apt install ./OpenSpeedTest</code>安装它。</p><p>安装之后运行<code>openspeedtest-server</code>但是有报错，提示缺少这个那个，看起来都是一些图像相关的东西。到这里我已经感觉有点不妙了，但是我还是充分发挥了我的主观能动性，逢山开路遇水搭桥，缺啥apt install啥，终于~~~ 它寄了…</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591349.png" alt="image-20240222164229716"></p><p>再别说了，直接无情卸载，然后我就准备去找源代码安装，就在这时，我鬼使神差的看到了top里有一个dockerxxx进程…</p><p>好嘛！直接docker ps -a查看，还有几个容器正在跑着呢，你说这我费啥劲，于是直接开始了没羞没臊的Docker生活：</p><p><code>docker run --restart=unless-stopped --name openspeedtest -d -p 3000:3000 -p 3001:3001 openspeedtest/latest</code></p><p>安装完成后直接进行一个速的测：</p><p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591504.png" alt="image-20240222164503986"></p><p>这个速度测试结果我还是比较满意的，就是不知道为什么，最近几次测速我的上行都是比下行高一点。</p><p>另外就是问一下大家，有没有什么全端通用的ipv6测速工具&#x2F;网站，最好是可以自行部署的。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;OpenSpeedTest是一个比较好用的开源网速测试工具，虽然国内外也有很多免费的测速网站，但是它支持自建测速服务器，可以用来方便的测试我</summary>
-      
-    
-    
-    
     
   </entry>
   
