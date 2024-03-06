@@ -595,89 +595,6 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
-    <article id="post-Speedtest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-	
-    <div class="article-entry" itemprop="articleBody">
-	  <!-- 添加分类与标签 -->
-	  
-		  
-		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>OpenSpeedTest是一个比较好用的开源网速测试工具，虽然国内外也有很多免费的测速网站，但是它支持自建测速服务器，可以用来方便的测试我本地到我的云服务器之间的速度。恰巧我今天给之前的VPS装了一些新服务，除了内存爆满感叹一下Java真的太吃内存了之外，又心血来潮想测试一下云服务器到我这里的速度。</p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708590766.png" alt="image-20240222163246918"></p>
-<p>那么我最开始是不想使用Docker的，<del>因为我忘记了这台机子上装的有docker</del>因为我喜欢自己动手的感觉，更重要的是这个VPS只剩下40多M的可用内存了，再开一个Docker撑不撑得住我心里也没底。</p>
-<p>于是我就向下翻看到了一个”OpenSpeedTest-Server for Desktop and Mobile”，就是我之前在Windows上用的服务端，我就果断复制链接Wget，然后就报错了，网站做了防盗链处理。没关系，我于是又自己手动下载下来挪到服务器上，然后狠狠地使用<code>apt install ./OpenSpeedTest</code>安装它。</p>
-<p>安装之后运行<code>openspeedtest-server</code>但是有报错，提示缺少这个那个，看起来都是一些图像相关的东西。到这里我已经感觉有点不妙了，但是我还是充分发挥了我的主观能动性，逢山开路遇水搭桥，缺啥apt install啥，终于~~~ 它寄了…</p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591349.png" alt="image-20240222164229716"></p>
-<p>再别说了，直接无情卸载，然后我就准备去找源代码安装，就在这时，我鬼使神差的看到了top里有一个dockerxxx进程…</p>
-<p>好嘛！直接docker ps -a查看，还有几个容器正在跑着呢，你说这我费啥劲，于是直接开始了没羞没臊的Docker生活：</p>
-<p><code>docker run --restart=unless-stopped --name openspeedtest -d -p 3000:3000 -p 3001:3001 openspeedtest/latest</code></p>
-<p>安装完成后直接进行一个速的测：</p>
-<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591504.png" alt="image-20240222164503986"></p>
-<p>这个速度测试结果我还是比较满意的，就是不知道为什么，最近几次测速我的上行都是比下行高一点。</p>
-<p>另外就是问一下大家，有没有什么全端通用的ipv6测速工具&#x2F;网站，最好是可以自行部署的。</p>
-
-				  
-	  
-      
-	  <!-- 添加打赏 -->
-	  
-	
-	  <!-- 添加版权声明 -->
-      
-	  
-	</div>
-	
-	<!-- 添加置顶 -->
-    <div class="article-info article-info-index">
-      
-	  
-	  <!-- 分类页 -->
-      
-      
-
-	  
-	  <!-- 添加展开全文 -->
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
-        </p>
-      
-	  
-	  <!-- 添加分享 -->
-      
-	  
-      <div class="clearfix"></div>
-	  
-    </div>
-  </div>
-</article>
-
-
-
-<!-- 添加回到顶部和文章目录 -->
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-      </div>
-    
-    
-  </div>
-</aside>
-
-<!-- 添加评论 -->
-
-
-<!-- 文章页添加mathjax公式 -->
-
-  
-
-<!-- 文章页添加mathjax公式 -->
-  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1033,6 +950,89 @@ var _hmt = _hmt || [];
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 设置旧的 IP 地址和新的 IP 地址</span><br><span class="line">OLD_IP=&quot;1.1.1.1&quot;</span><br><span class="line">NEW_IP=&quot;2.2.2.2&quot;</span><br><span class="line"></span><br><span class="line"># 指定要搜索的目录</span><br><span class="line">DIRECTORY=&quot;/etc/nginx/sites-available&quot;</span><br><span class="line"></span><br><span class="line"># 遍历目录中的所有文件</span><br><span class="line">for file in $DIRECTORY/*</span><br><span class="line">do</span><br><span class="line">  # 检查文件是否包含旧的 IP 地址</span><br><span class="line">  if grep -q $OLD_IP $file; then</span><br><span class="line">    # 使用 sed 命令替换 IP 地址</span><br><span class="line">    sed -i &quot;s/$OLD_IP/$NEW_IP/g&quot; $file</span><br><span class="line">    echo &quot;Updated IP address in $file&quot;</span><br><span class="line">  fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># 重载 Nginx 配置</span><br><span class="line">sudo nginx -s reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>使用到现在，还没有遇到什么问题，有需求的朋友们可以参考。</p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+	
+	  <!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
+      
+
+	  
+	  <!-- 添加展开全文 -->
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
+        </p>
+      
+	  
+	  <!-- 添加分享 -->
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+  </div>
+</aside>
+
+<!-- 添加评论 -->
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
+  
+    <article id="post-Speedtest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>OpenSpeedTest是一个比较好用的开源网速测试工具，虽然国内外也有很多免费的测速网站，但是它支持自建测速服务器，可以用来方便的测试我本地到我的云服务器之间的速度。恰巧我今天给之前的VPS装了一些新服务，除了内存爆满感叹一下Java真的太吃内存了之外，又心血来潮想测试一下云服务器到我这里的速度。</p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708590766.png" alt="image-20240222163246918"></p>
+<p>那么我最开始是不想使用Docker的，<del>因为我忘记了这台机子上装的有docker</del>因为我喜欢自己动手的感觉，更重要的是这个VPS只剩下40多M的可用内存了，再开一个Docker撑不撑得住我心里也没底。</p>
+<p>于是我就向下翻看到了一个”OpenSpeedTest-Server for Desktop and Mobile”，就是我之前在Windows上用的服务端，我就果断复制链接Wget，然后就报错了，网站做了防盗链处理。没关系，我于是又自己手动下载下来挪到服务器上，然后狠狠地使用<code>apt install ./OpenSpeedTest</code>安装它。</p>
+<p>安装之后运行<code>openspeedtest-server</code>但是有报错，提示缺少这个那个，看起来都是一些图像相关的东西。到这里我已经感觉有点不妙了，但是我还是充分发挥了我的主观能动性，逢山开路遇水搭桥，缺啥apt install啥，终于~~~ 它寄了…</p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591349.png" alt="image-20240222164229716"></p>
+<p>再别说了，直接无情卸载，然后我就准备去找源代码安装，就在这时，我鬼使神差的看到了top里有一个dockerxxx进程…</p>
+<p>好嘛！直接docker ps -a查看，还有几个容器正在跑着呢，你说这我费啥劲，于是直接开始了没羞没臊的Docker生活：</p>
+<p><code>docker run --restart=unless-stopped --name openspeedtest -d -p 3000:3000 -p 3001:3001 openspeedtest/latest</code></p>
+<p>安装完成后直接进行一个速的测：</p>
+<p><img src="https://raw.githubusercontent.com/ringldh/tuchuang/master/2024/02/upgit_20240222_1708591504.png" alt="image-20240222164503986"></p>
+<p>这个速度测试结果我还是比较满意的，就是不知道为什么，最近几次测速我的上行都是比下行高一点。</p>
+<p>另外就是问一下大家，有没有什么全端通用的ipv6测速工具&#x2F;网站，最好是可以自行部署的。</p>
 
 				  
 	  
