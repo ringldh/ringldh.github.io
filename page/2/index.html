@@ -839,109 +839,6 @@ var _hmt = _hmt || [];
 
 <!-- 文章页添加mathjax公式 -->
   
-    <article id="post-nginx配置更改" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-	
-    <div class="article-entry" itemprop="articleBody">
-	  <!-- 添加分类与标签 -->
-	  
-		  
-		  <p>-–</p>
-<p>title: nginx配置更改</p>
-<p>tag:</p>
-<p>  - null</p>
-<p>categories:</p>
-<p>  - null</p>
-<p>article_type: 0</p>
-<p>no_word_count: false</p>
-<p>no_toc: false</p>
-<p>no_date: false</p>
-<p>no_declare: false</p>
-<p>no_reward: false</p>
-<p>no_comments: false</p>
-<p>no_share: false</p>
-<p>no_footer: false</p>
-<p>mathjax: false</p>
-<p>date: 2024-01-24 09:50:43</p>
-<p>top:</p>
-<p>-–</p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我的云服务器配置比较低，只有2C4G，部署不了太多应用，因此我只在上面部署了一些简单应用，大多数应用还是部署在我自己家里的电脑上，然后在外网使用需求的就暴露出来公网ip，通过云服务器进行重定向。</p>
-<h3 id="nginx设置"><a href="#nginx设置" class="headerlink" title="nginx设置"></a>nginx设置</h3><p>我家里的是联通宽带，有公网ip，上行也有150M左右，还是比较充裕的。因此我在家里的服务器上部署了很多工具，有需要的就在路由器上进行端口转发到公网。在云服务器上，我配置了nginx，将对应的二级域名转发到我家里的ip。为了便于管理，我的nginx配置文件存放在<code>/etc/nginx/sites-available</code>,每次需要新增网站时，我都是在这个目录下新建一个文件（这里假设我的域名是exmple.com，新建的网站为xyz.exmple.com,家里ip为1.1.1.1，服务端口为8888）。</p>
-<p>sudo nano &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;xyz.exmple.com</p>
-<p>文件内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name xyz.exmple.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://1.1.1.1:8888;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后保存。使用链接将内容链接到&#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;:</p>
-<p>sudo ln -s &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;yjy.chenandu.top &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;</p>
-<p>最后重载配置即可：</p>
-<p>sudo nginx -s reload</p>
-<h3 id="新的问题"><a href="#新的问题" class="headerlink" title="新的问题"></a>新的问题</h3><p>本来以为这么设置后就已经万事大吉了，但是前段时间我的公网ip突然变了，所有网站都没法用了，一个一个改的话要累死我，于是就又写了一个bash脚本，用来批量更改nginx的配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 设置旧的 IP 地址和新的 IP 地址</span><br><span class="line">OLD_IP=&quot;1.1.1.1&quot;</span><br><span class="line">NEW_IP=&quot;2.2.2.2&quot;</span><br><span class="line"></span><br><span class="line"># 指定要搜索的目录</span><br><span class="line">DIRECTORY=&quot;/etc/nginx/sites-available&quot;</span><br><span class="line"></span><br><span class="line"># 遍历目录中的所有文件</span><br><span class="line">for file in $DIRECTORY/*</span><br><span class="line">do</span><br><span class="line">  # 检查文件是否包含旧的 IP 地址</span><br><span class="line">  if grep -q $OLD_IP $file; then</span><br><span class="line">    # 使用 sed 命令替换 IP 地址</span><br><span class="line">    sed -i &quot;s/$OLD_IP/$NEW_IP/g&quot; $file</span><br><span class="line">    echo &quot;Updated IP address in $file&quot;</span><br><span class="line">  fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># 重载 Nginx 配置</span><br><span class="line">sudo nginx -s reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>使用到现在，还没有遇到什么问题，有需求的朋友们可以参考。</p>
-
-				  
-	  
-      
-	  <!-- 添加打赏 -->
-	  
-	
-	  <!-- 添加版权声明 -->
-      
-	  
-	</div>
-	
-	<!-- 添加置顶 -->
-    <div class="article-info article-info-index">
-      
-	  
-	  <!-- 分类页 -->
-      
-      
-
-	  
-	  <!-- 添加展开全文 -->
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
-        </p>
-      
-	  
-	  <!-- 添加分享 -->
-      
-	  
-      <div class="clearfix"></div>
-	  
-    </div>
-  </div>
-</article>
-
-
-
-<!-- 添加回到顶部和文章目录 -->
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-      </div>
-    
-    
-  </div>
-</aside>
-
-<!-- 添加评论 -->
-
-
-<!-- 文章页添加mathjax公式 -->
-
-  
-
-<!-- 文章页添加mathjax公式 -->
-  
     <article id="post-math" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1058,6 +955,109 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/post/a927044d.html">展开全文 >></a>
+        </p>
+      
+	  
+	  <!-- 添加分享 -->
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+  </div>
+</aside>
+
+<!-- 添加评论 -->
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
+  
+    <article id="post-nginx配置更改" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <p>-–</p>
+<p>title: nginx配置更改</p>
+<p>tag:</p>
+<p>  - null</p>
+<p>categories:</p>
+<p>  - null</p>
+<p>article_type: 0</p>
+<p>no_word_count: false</p>
+<p>no_toc: false</p>
+<p>no_date: false</p>
+<p>no_declare: false</p>
+<p>no_reward: false</p>
+<p>no_comments: false</p>
+<p>no_share: false</p>
+<p>no_footer: false</p>
+<p>mathjax: false</p>
+<p>date: 2024-01-24 09:50:43</p>
+<p>top:</p>
+<p>-–</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我的云服务器配置比较低，只有2C4G，部署不了太多应用，因此我只在上面部署了一些简单应用，大多数应用还是部署在我自己家里的电脑上，然后在外网使用需求的就暴露出来公网ip，通过云服务器进行重定向。</p>
+<h3 id="nginx设置"><a href="#nginx设置" class="headerlink" title="nginx设置"></a>nginx设置</h3><p>我家里的是联通宽带，有公网ip，上行也有150M左右，还是比较充裕的。因此我在家里的服务器上部署了很多工具，有需要的就在路由器上进行端口转发到公网。在云服务器上，我配置了nginx，将对应的二级域名转发到我家里的ip。为了便于管理，我的nginx配置文件存放在<code>/etc/nginx/sites-available</code>,每次需要新增网站时，我都是在这个目录下新建一个文件（这里假设我的域名是exmple.com，新建的网站为xyz.exmple.com,家里ip为1.1.1.1，服务端口为8888）。</p>
+<p>sudo nano &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;xyz.exmple.com</p>
+<p>文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name xyz.exmple.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://1.1.1.1:8888;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后保存。使用链接将内容链接到&#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;:</p>
+<p>sudo ln -s &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;yjy.chenandu.top &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;</p>
+<p>最后重载配置即可：</p>
+<p>sudo nginx -s reload</p>
+<h3 id="新的问题"><a href="#新的问题" class="headerlink" title="新的问题"></a>新的问题</h3><p>本来以为这么设置后就已经万事大吉了，但是前段时间我的公网ip突然变了，所有网站都没法用了，一个一个改的话要累死我，于是就又写了一个bash脚本，用来批量更改nginx的配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 设置旧的 IP 地址和新的 IP 地址</span><br><span class="line">OLD_IP=&quot;1.1.1.1&quot;</span><br><span class="line">NEW_IP=&quot;2.2.2.2&quot;</span><br><span class="line"></span><br><span class="line"># 指定要搜索的目录</span><br><span class="line">DIRECTORY=&quot;/etc/nginx/sites-available&quot;</span><br><span class="line"></span><br><span class="line"># 遍历目录中的所有文件</span><br><span class="line">for file in $DIRECTORY/*</span><br><span class="line">do</span><br><span class="line">  # 检查文件是否包含旧的 IP 地址</span><br><span class="line">  if grep -q $OLD_IP $file; then</span><br><span class="line">    # 使用 sed 命令替换 IP 地址</span><br><span class="line">    sed -i &quot;s/$OLD_IP/$NEW_IP/g&quot; $file</span><br><span class="line">    echo &quot;Updated IP address in $file&quot;</span><br><span class="line">  fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># 重载 Nginx 配置</span><br><span class="line">sudo nginx -s reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用到现在，还没有遇到什么问题，有需求的朋友们可以参考。</p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+	
+	  <!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
+      
+
+	  
+	  <!-- 添加展开全文 -->
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/post/0.html">展开全文 >></a>
         </p>
       
 	  
@@ -1437,7 +1437,7 @@ window.MathJax = {
 		<span> 18 篇</span>
 		<span class="post-meta-divider">|</span>
 		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-		<span> <span class="post-count">9.4k</span></span>
+		<span> <span class="post-count">9.5k</span></span>
       </div>
 	  
 	  <!-- 添加不蒜子统计 -->
