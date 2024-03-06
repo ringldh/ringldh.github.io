@@ -10,15 +10,15 @@
   <title>使用ssh密钥时的一些错误 | Chen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="description" content="前言因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行ssh-add  密钥文件地址，例如ssh-add ~&#x2F;.ssh&#x2F;github就可以了，但是在我这台新服务器上会报错： 1Could not open a connection to your authentication agent.  这个保">
+  <meta name="description" content="前言因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行ssh-add  密钥文件地址，例如ssh-add ~&#x2F;.ssh&#x2F;github就可以了，但是在我这台新服务器上会报错： 1Could not open a connection to your authentication agent.  这个保存的原因是服务器还没有启动ssh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ssh密钥时的一些错误">
 <meta property="og:url" content="https://ringldh.github.io/post/cb25650a.html">
 <meta property="og:site_name" content="Chen">
-<meta property="og:description" content="前言因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行ssh-add  密钥文件地址，例如ssh-add ~&#x2F;.ssh&#x2F;github就可以了，但是在我这台新服务器上会报错： 1Could not open a connection to your authentication agent.  这个保">
+<meta property="og:description" content="前言因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行ssh-add  密钥文件地址，例如ssh-add ~&#x2F;.ssh&#x2F;github就可以了，但是在我这台新服务器上会报错： 1Could not open a connection to your authentication agent.  这个保存的原因是服务器还没有启动ssh">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-04T09:03:00.534Z">
-<meta property="article:modified_time" content="2024-03-06T04:17:31.568Z">
+<meta property="article:modified_time" content="2024-03-06T06:40:42.281Z">
 <meta property="article:author" content="Chen">
 <meta property="article:tag" content="杂谈">
 <meta name="twitter:card" content="summary">
@@ -397,10 +397,10 @@ var _hmt = _hmt || [];
 		  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为迁移服务器嘛，一些密钥比如Github的访问密钥我也顺手给倒进去了，然后在服务器上导入。正常情况下应该是直接执行<code>ssh-add  密钥文件地址</code>，例如<code>ssh-add ~/.ssh/github</code>就可以了，但是在我这台新服务器上会报错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not open a connection to your authentication agent.</span><br></pre></td></tr></table></figure>
 
-<p>这个保</p>
+<p>这个保存的原因是服务器还没有启动ssh agent。输入<code>eval $(ssh-agent -s)</code>启动一下就好了。</p>
 <span id="more"></span>
 
-<p>存的原因是服务器还没有启动ssh agent。输入<code>eval $(ssh-agent -s)</code>启动一下就好了。</p>
+
 <p>但是我在启动之后仍然不行，这次报错换了：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0664 for &#x27;我的密钥&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -461,7 +461,7 @@ var _hmt = _hmt || [];
 	
 	<br>
 	<strong class="update-time">最后更新：</strong>
-	2024年03月06日 12:17:31
+	2024年03月06日 14:40:42
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
@@ -571,18 +571,18 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/post/9697a259.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/post/e7f8cbd8.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          原本草稿
+          tab
         
       </div>
     </a>
   
   
-    <a href="/post/7439f9a8.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">安装node</div>
+    <a href="/post/9697a259.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">原本草稿</div>
       <i class="icon-circle-right"></i>
     </a>
   
